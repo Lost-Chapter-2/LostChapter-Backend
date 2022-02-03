@@ -30,7 +30,7 @@ public class UserDao {
 	@Transactional
 	public Users addUser(SignUpDto dto, Carts c) {
 		Users createdUser = new Users(dto.getUsername(), dto.getPassword(), dto.getFirstName(), dto.getLastName(),
-				dto.getAge(), dto.getEmail(), dto.getBirthday(), dto.getAddress(), dto.getRole());
+			 dto.getEmail(), dto.getBirthday(), dto.getAddress(), dto.getRole());
 
 		em.persist(createdUser);
 

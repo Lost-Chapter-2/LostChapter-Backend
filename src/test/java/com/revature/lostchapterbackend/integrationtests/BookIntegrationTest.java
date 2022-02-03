@@ -27,6 +27,7 @@ import com.revature.lostchapterbackend.dto.AddOrUpdateBookDTO;
 import com.revature.lostchapterbackend.model.Book;
 import com.revature.lostchapterbackend.model.Genre;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class BookIntegrationTest {
 		g2 = new Genre();
 		g2.setGenre("NonFiction");
 		em.persist(g2);
-
+		LocalDate dt = LocalDate.parse("2000-11-01");
 		// Arrange
 		Book actualBook = new Book("1234567879", "bookName", "synopsis",
 				"author", g, 1, 1996, "edition",
@@ -81,7 +82,7 @@ public class BookIntegrationTest {
 
 		admin = new Users("test123",
 				"5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8",
-				"testfn","testln",21,"test123@gmail.com","1990-12-09",
+				"testfn","testln","test123@gmail.com",dt,
 				"address123","Admin");
 		em.persist(admin);
 

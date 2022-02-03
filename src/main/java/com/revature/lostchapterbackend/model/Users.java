@@ -1,5 +1,6 @@
 package com.revature.lostchapterbackend.model;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -20,11 +21,10 @@ public class Users {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private int age;
 	
 	@Column(unique=true)
 	private String email;
-	private String birthday;
+	private LocalDate birthday;
 	private String address;
 	private String role;
 	
@@ -32,14 +32,14 @@ public class Users {
 		super();
 	}
 
-	public Users(String username, String password, String firstName, String lastName, int age, String email,
-			String birthday, String address, String role) {
+	public Users(String username, String password, String firstName, String lastName,  String email,
+			LocalDate birthday, String address, String role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.age = age;
+		
 		this.email = email;
 		this.birthday = birthday;
 		this.address = address;
@@ -86,14 +86,6 @@ public class Users {
 		this.lastName = lastName;
 	}
 
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -102,11 +94,11 @@ public class Users {
 		this.email = email;
 	}
 
-	public String getBirthday() {
+	public LocalDate getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(String birthday) {
+	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
 	}
 
@@ -127,8 +119,15 @@ public class Users {
 	}
 
 	@Override
+	public String toString() {
+		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", birthday=" + birthday + ", address=" + address
+				+ ", role=" + role + "]";
+	}
+
+	@Override
 	public int hashCode() {
-		return Objects.hash(address, age, birthday, email, firstName, id, lastName, password, role, username);
+		return Objects.hash(address, birthday, email, firstName, id, lastName, password, role, username);
 	}
 
 	@Override
@@ -140,21 +139,12 @@ public class Users {
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
-		return Objects.equals(address, other.address) && age == other.age && Objects.equals(birthday, other.birthday)
+		return Objects.equals(address, other.address) && Objects.equals(birthday, other.birthday)
 				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName) && id == other.id
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
 				&& Objects.equals(role, other.role) && Objects.equals(username, other.username);
 	}
 
-	@Override
-	public String toString() {
-		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", age=" + age + ", email=" + email + ", birthday=" + birthday
-				+ ", address=" + address + ", role=" + role + "]";
-	}
-
-	
-	
 	
 
 }

@@ -19,6 +19,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.time.LocalDate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -41,9 +44,9 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users user1 = new Users("test123","5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8","testfn",
-                "testln",21,"test123@gmail.com","12/09/1990",
+                "testln","test123@gmail.com",dt,
                 "address123","customer");
         session.persist(user1);
         Carts c = new Carts(user1);
@@ -59,7 +62,7 @@ public class AuthenticationControllerTest {
     public void testLogin_positive() throws Exception {
 
 
-
+    	LocalDate dt = LocalDate.parse("2000-11-01");
         LoginDto dto = new LoginDto("test123",
                 "password");
         String jsonToSend = mapper.writeValueAsString(dto);
@@ -72,7 +75,7 @@ public class AuthenticationControllerTest {
 
         Users expectedUser = new Users("test123","5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8","testfn",
 
-                "testln",21,"test123@gmail.com","12/09/1990",
+                "testln","test123@gmail.com",dt,
                 "address123","customer");
         expectedUser.setId(1);
 
@@ -117,11 +120,11 @@ public class AuthenticationControllerTest {
     @Test
     public void testCreateUser_positive() throws Exception {
         EntityManager em = emf.createEntityManager();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("testuser1",
                 "password123",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -129,8 +132,8 @@ public class AuthenticationControllerTest {
 
         Users expectedUser = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         em.persist(expectedUser);
         expectedUser.setId(2);
         Carts c = new Carts(expectedUser);
@@ -142,11 +145,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserUsernameIsEmpty_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto(" ",
                 "password123",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","customer");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -160,11 +163,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserPasswordIsEmpty_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("test123",
                 " ",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","customer");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -178,11 +181,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserFirstNameIsEmpty_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("test123",
                 "password123",
-                "","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","customer");
+                "","testlastname","test@list.com",
+                dt,"addresswest","customer");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -195,11 +198,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserLastNameIsEmpty_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("test123",
                 "password123",
-                "testfirstname","",21,"test@list.com",
-                "09/08/1990","addresswest","customer");
+                "testfirstname","","test@list.com",
+               dt,"addresswest","customer");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -212,11 +215,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserAgeIsLessThan5_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("test1234",
                 "password123",
-                "testfirstname","testlastname",3,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -230,11 +233,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserAgeIsGreaterThan125_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("test1234",
                 "password123",
-                "testfirstname","testlastname",130,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
 
         String jsonToSend = mapper.writeValueAsString(dto);
 
@@ -250,11 +253,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserEmailIsEmpty_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("test123",
                 "password123",
-                "testfirstname","testlastname",3,"",
-                "09/08/1990","addresswest","customer");
+                "testfirstname","testlastname","",
+                dt,"addresswest","customer");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -267,11 +270,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserBirthdateIsEmpty_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("test123",
                 "password123",
-                "testfirstname","testlastname",3,"test@list.com",
-                "","addresswest","customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","customer");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -284,11 +287,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserAddressIsEmpty_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("test123",
                 "password123",
-                "testfirstname","testlastname",3,"test@list.com",
-                "09/08/1990","","customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"","customer");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -301,11 +304,11 @@ public class AuthenticationControllerTest {
     
     @Test
     public void testCreateUserRoleIsEmpty_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("test123",
                 "password123",
-                "testfirstname","testlastname",3,"test@list.com",
-                "09/08/1990","addresswest","");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -318,11 +321,11 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCreateUserEverythingIsEmpty_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         SignUpDto dto = new SignUpDto("",
                 "",
-                "","",3,"",
-                "","","");
+                "","","",
+                dt,"","");
         String jsonToSend = mapper.writeValueAsString(dto);
 
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
@@ -335,10 +338,10 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCheckLoginStatus_positive() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         Users fakeUser = new Users("test123",
                 "5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8",
-                "testfn", "testln",21,"test123@gmail.com","12/09/1990",
+                "testfn", "testln","test123@gmail.com",dt,
                 "address123","Customer");
         fakeUser.setId(3);
 
@@ -355,10 +358,10 @@ public class AuthenticationControllerTest {
 
     @Test
     public void testCheckLoginStatus_negative() throws Exception {
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         Users fakeUser = new Users("test123",
                 "5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8",
-                "testfn", "testln",21,"test123@gmail.com","12/09/1990",
+                "testfn", "testln","test123@gmail.com",dt,
                 "address123","Customer");
         fakeUser.setId(3);
 
@@ -376,10 +379,10 @@ public class AuthenticationControllerTest {
 //        EntityManager em = emf.createEntityManager();
 //        Session session = em.unwrap(Session.class);
 //        Transaction tx = session.beginTransaction();
-
+    	  LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("test1",
                 "5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8",
-                "testf", "testl",21,"test989@gmail.com","12/09/1990",
+                "testf", "testl","test989@gmail.com",dt,
                 "addresstest","Customer");
         u.setId(1);
         
@@ -402,11 +405,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         em.persist(u);
 
         tx.commit();
@@ -422,8 +425,8 @@ public class AuthenticationControllerTest {
 
         Users expectedUser = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         expectedUser.setId(2);
 
         String expectedJson = mapper.writeValueAsString(expectedUser);
@@ -438,11 +441,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         em.persist(u);
 
         tx.commit();
@@ -474,11 +477,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         em.persist(u);
 
         tx.commit();
@@ -502,11 +505,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         em.persist(u);
 
         tx.commit();
@@ -531,11 +534,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","",21,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","","test@list.com",
+                dt,"addresswest","Customer");
         em.persist(u);
 
         tx.commit();
@@ -559,11 +562,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",2,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         em.persist(u);
 
         tx.commit();
@@ -587,11 +590,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",220,"test@list.com",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         em.persist(u);
 
         tx.commit();
@@ -615,11 +618,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",21,"",
-                "09/08/1990","addresswest","Customer");
+                "testfirstname","testlastname","",
+                dt,"addresswest","Customer");
         em.persist(u);
 
         tx.commit();
@@ -644,11 +647,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"","Customer");
         em.persist(u);
 
         tx.commit();
@@ -672,11 +675,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",21,"test@list.com",
-                "","addresswest","Customer");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","Customer");
         em.persist(u);
 
         tx.commit();
@@ -700,11 +703,11 @@ public class AuthenticationControllerTest {
         EntityManager em = emf.createEntityManager();
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
-
+        LocalDate dt = LocalDate.parse("2000-11-01");
         Users u = new Users("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
-                "testfirstname","testlastname",21,"test@list.com",
-                "09/08/1990","addresswest","");
+                "testfirstname","testlastname","test@list.com",
+                dt,"addresswest","");
         em.persist(u);
 
         tx.commit();

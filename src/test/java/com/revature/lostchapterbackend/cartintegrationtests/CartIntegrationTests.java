@@ -1,5 +1,6 @@
 package com.revature.lostchapterbackend.cartintegrationtests;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
@@ -99,14 +100,15 @@ public class CartIntegrationTests {
 		
 		session.persist(noStockBook);
 		
+		LocalDate dt = LocalDate.parse("2018-11-01");
 		Users user = new Users();	//Id should be 1
 		user.setUsername("test");
 		user.setPassword("5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8"); //its "password"
 		user.setFirstName("test");
 		user.setLastName("test");
-		user.setAge(25);
+//		user.setAge(25);
 		user.setEmail("test");
-		user.setBirthday("test");
+		user.setBirthday(dt);
 		user.setAddress("test");
 		user.setRole("Customer");
 		
@@ -128,9 +130,9 @@ public class CartIntegrationTests {
 		this.expectedUser.setPassword("5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8"); //its "password"
 		this.expectedUser.setFirstName("test");
 		this.expectedUser.setLastName("test");
-		this.expectedUser.setAge(25);
+		
 		this.expectedUser.setEmail("test");
-		this.expectedUser.setBirthday("test");
+		this.expectedUser.setBirthday(dt);
 		this.expectedUser.setAddress("test");
 		this.expectedUser.setRole("Customer");
 		
