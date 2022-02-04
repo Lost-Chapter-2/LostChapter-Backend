@@ -51,10 +51,10 @@ public class UserService {
 
 		Set<String> validRole = new HashSet<>();
 		validRole.add("Customer");
-		validRole.add("Admin");
+//		validRole.add("Admin");
 
 		if (!validRole.contains(dto.getRole())) {
-			throw new InvalidParameterException("You can only sign up as a Customer or an Admin");
+			throw new InvalidParameterException("You can only sign up as a Customer");
 		}
 
 		String algorithm = "SHA-256";
