@@ -25,12 +25,12 @@ public class Cart {
 
 	@OneToMany
 	@JoinColumn(name="book_to_buy_id")
-	private int booksToBuyID;
+	private Book book;
 
 	public Cart() {
 		cartId = 0;
 		user = new User();
-		booksToBuyID = 0;
+		book = new Book();
 	}
 
 	public int getCartId() {
@@ -49,17 +49,17 @@ public class Cart {
 		this.user = user;
 	}
 
-	public int getBooksToBuyID() {
-		return booksToBuyID;
+	public Book getBooksToBuyID() {
+		return book;
 	}
 
-	public void setBooksToBuyID(int booksToBuyID) {
-		this.booksToBuyID = booksToBuyID;
+	public void setBooksToBuy(Book book) {
+		this.book = book;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(booksToBuyID, cartId, user);
+		return Objects.hash(book, cartId, user);
 	}
 
 	@Override
@@ -71,12 +71,12 @@ public class Cart {
 		if (getClass() != obj.getClass())
 			return false;
 		Cart other = (Cart) obj;
-		return booksToBuyID == other.booksToBuyID && cartId == other.cartId && Objects.equals(user, other.user);
+		return book == other.book && cartId == other.cartId && Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "Cart [cartId=" + cartId + ", user=" + user + ", booksToBuyID=" + booksToBuyID + "]";
+		return "Cart [cartId=" + cartId + ", user=" + user + ", Book=" + book + "]";
 	}
 	
 }
