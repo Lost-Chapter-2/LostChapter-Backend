@@ -1,11 +1,8 @@
 package com.revature.lostchapterbackend.dao;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-
 
 import org.hibernate.Session;
 import org.slf4j.Logger;
@@ -30,11 +27,12 @@ public class UserDao {
 	@Transactional
 	public User addUser(SignUpDto dto, Cart c) {
 		User createdUser = new User(dto.getUsername(), dto.getPassword(), dto.getFirstName(), dto.getLastName(),
-			 dto.getEmail(), dto.getBirthday(), dto.getAddress(), dto.getRole());
+			 dto.getEmail(), dto.getBirthday(), dto.getRole());
 
 		em.persist(createdUser);
 
-		c = new Cart(createdUser);
+		c = new Cart();
+		c.setUser(createdUser);
 		em.persist(c);
 		return createdUser;
 	}
