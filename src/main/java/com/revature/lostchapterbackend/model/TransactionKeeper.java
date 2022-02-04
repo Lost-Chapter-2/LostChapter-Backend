@@ -4,31 +4,32 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table
 public class TransactionKeeper {
 
 	@Id
+	@Column(name="transaction_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int transactionId;
-	private String orderNumber;
+	private int orderNumber;
 	private double totalPrice;
 	@ElementCollection
-	private List<String> previousOrder;
+	private int previousOrder;
 	private LocalDateTime transactionDate;
-
-	public TransactionKeeper() {
-		super();
-	}
-
-	public TransactionKeeper(String orderNumber, double totalPrice, List<String> previousOrder,
+	
+	public TransactionKeeper(int transactionId, int orderNumber, double totalPrice, int previousOrder,
 			LocalDateTime transactionDate) {
 		super();
+		this.transactionId = transactionId;
 		this.orderNumber = orderNumber;
 		this.totalPrice = totalPrice;
 		this.previousOrder = previousOrder;
@@ -43,11 +44,11 @@ public class TransactionKeeper {
 		this.transactionId = transactionId;
 	}
 
-	public String getOrderNumber() {
+	public int getOrderNumber() {
 		return orderNumber;
 	}
 
-	public void setOrderNumber(String orderNumber) {
+	public void setOrderNumber(int orderNumber) {
 		this.orderNumber = orderNumber;
 	}
 
@@ -59,11 +60,11 @@ public class TransactionKeeper {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<String> getPreviousOrder() {
+	public int getPreviousOrder() {
 		return previousOrder;
 	}
 
-	public void setPreviousOrder(List<String> previousOrder) {
+	public void setPreviousOrder(int previousOrder) {
 		this.previousOrder = previousOrder;
 	}
 
@@ -73,6 +74,12 @@ public class TransactionKeeper {
 
 	public void setTransactionDate(LocalDateTime transactionDate) {
 		this.transactionDate = transactionDate;
+	}
+
+	@Override
+	public String toString() {
+		return "TransactionKeeper [transactionId=" + transactionId + ", orderNumber=" + orderNumber + ", totalPrice="
+				+ totalPrice + ", previousOrder=" + previousOrder + ", transactionDate=" + transactionDate + "]";
 	}
 
 	@Override
@@ -89,15 +96,12 @@ public class TransactionKeeper {
 		if (getClass() != obj.getClass())
 			return false;
 		TransactionKeeper other = (TransactionKeeper) obj;
-		return Objects.equals(orderNumber, other.orderNumber) && Objects.equals(previousOrder, other.previousOrder)
+		return orderNumber == other.orderNumber && previousOrder == other.previousOrder
 				&& Double.doubleToLongBits(totalPrice) == Double.doubleToLongBits(other.totalPrice)
 				&& Objects.equals(transactionDate, other.transactionDate) && transactionId == other.transactionId;
 	}
 
-	@Override
-	public String toString() {
-		return "TransactionKeeper [transactionId=" + transactionId + ", orderNumber=" + orderNumber + ", totalPrice="
-				+ totalPrice + ", previousOrder=" + previousOrder + ", transactionDate=" + transactionDate + "]";
-	}
-
+	
+	
+	
 }
