@@ -96,7 +96,7 @@ public class AuthenticationController {
 				throw new UserNotFoundException("This user does not exist or is not logged in");
 			}
 			
-			int id = currentlyLoggedInUser.getId();
+			int id = currentlyLoggedInUser.getUserId();
 			us.deleteUserById(currentlyLoggedInUser);
 			req.getSession().invalidate();
 			

@@ -18,8 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.lostchapterbackend.annotation.Customer;
 import com.revature.lostchapterbackend.exceptions.BookNotFoundException;
 import com.revature.lostchapterbackend.exceptions.OutOfStockException;
+
 import com.revature.lostchapterbackend.model.Cart;
 
+
+
+
+import com.revature.lostchapterbackend.service.CartService;
 
 
 
@@ -28,7 +33,7 @@ import com.revature.lostchapterbackend.model.Cart;
 public class CartController {
 
 	@Autowired
-	private CartService cs;
+	private CartService cartServ;
 
 	private final String PATTERN = "[0-9]+"; // checks String if it only contains numbers
 	
@@ -41,7 +46,7 @@ public class CartController {
 		try {
 			Cart currentCart = null;
 			if (userId.matches(PATTERN) && bookId.matches(PATTERN) && quantityToBuy.matches(PATTERN)) {
-				currentCart = cs.addBooksToCart(currentCart, userId, bookId, quantityToBuy);
+				currentCart = cartServ.addBooksToCart(currentCart, userId, bookId, quantityToBuy);
 				return ResponseEntity.status(200).body(currentCart);
 			} else {
 				throw new NumberFormatException("product id or quantity must be of type int!");
@@ -59,7 +64,7 @@ public class CartController {
 		// Aspect or another class for protecting endpoint
 		try {
 
-			Cart getCartById = cs.getCartById(userId);
+			Cart getCartById = cartServ.getCartById(userId);
 			return ResponseEntity.status(200).body(getCartById);
 
 		} catch (InvalidParameterException e) {
@@ -77,10 +82,10 @@ public class CartController {
 		try {
 			Cart currentCart = null;
 			if (bookId != null && (cartId.matches(PATTERN) && bookId.matches(PATTERN))) {
-				currentCart = cs.delteteProductInCart(currentCart, cartId, bookId);
+				currentCart = cartServ.delteteProductInCart(currentCart, cartId, bookId);
 				return ResponseEntity.status(200).body(currentCart);
 			} else if (bookId == null) {
-				currentCart = cs.delteteAllProductInCart(currentCart, cartId);
+				currentCart = cartServ.delteteAllProductInCart(currentCart, cartId);
 				return ResponseEntity.status(200).body(currentCart);
 			} else {
 				throw new NumberFormatException("cart id/product id must be of type int!");

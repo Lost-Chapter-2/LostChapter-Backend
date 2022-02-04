@@ -15,7 +15,7 @@ import com.revature.lostchapterbackend.dto.SignUpDto;
 import com.revature.lostchapterbackend.exceptions.InvalidLoginException;
 import com.revature.lostchapterbackend.exceptions.InvalidParameterException;
 import com.revature.lostchapterbackend.exceptions.UserNotFoundException;
-import com.revature.lostchapterbackend.model.Carts;
+import com.revature.lostchapterbackend.model.Cart;
 import com.revature.lostchapterbackend.model.User;
 import com.revature.lostchapterbackend.utility.HashUtil;
 
@@ -61,7 +61,7 @@ public class UserService {
 		String hashedPassword = HashUtil.hashPassword(dto.getPassword().trim(), algorithm);
 		dto.setPassword(hashedPassword);
 
-		Carts c = null;
+		Cart c = null;
 		User createdUser = this.ud.addUser(dto, c);
 		return createdUser;
 
@@ -97,7 +97,7 @@ public class UserService {
 	public void deleteUserById(User currentUser) throws UserNotFoundException {
 
 		if (currentUser != null) {
-			int currentUserId = currentUser.getId();
+			int currentUserId = currentUser.getUserId();
 			ud.deleteUserById(currentUserId);
 		} else {
 			throw new UserNotFoundException("Current user is null");
@@ -133,8 +133,8 @@ public class UserService {
 //			throw new InvalidParameterException("Age cannot be less than 5 or greater than 125");
 //		}
 
-		int currentUserId = currentUser.getId();
-		updatedUserInfo.setId(currentUserId);
+		int currentUserId = currentUser.getUserId();
+		updatedUserInfo.setUserId(currentUserId);
 		updatedUserInfo.setUsername(currentUser.getUsername());
 		updatedUserInfo.setPassword(currentUser.getPassword());
 		updatedUserInfo.setRole(currentUser.getRole());

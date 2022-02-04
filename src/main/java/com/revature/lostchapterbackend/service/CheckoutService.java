@@ -32,8 +32,10 @@ public class CheckoutService {
 	private BookDAO bookDao;
 
 	@Autowired
-	private CartsService cartServ;
+	private CartService cartServ;
 
+	private CartService cs;
+	
 	@Autowired
 	private TransactionKeeperDAO transKeepDao;
 

@@ -25,11 +25,11 @@ import com.revature.lostchapterbackend.model.Carts;
 import com.revature.lostchapterbackend.model.Genre;
 import com.revature.lostchapterbackend.model.User;
 import com.revature.lostchapterbackend.service.BookService;
-import com.revature.lostchapterbackend.service.CartsService;
+import com.revature.lostchapterbackend.service.CartService;
 
 public class CartsServiceTest {
 
-	private CartsService cs;
+	private CartService cs;
 	private CartsDAO cd;
 	private BookToBuyDAO btbd;
 
@@ -42,7 +42,7 @@ public class CartsServiceTest {
 		this.bs = new BookService(bd);
 		this.cd = mock(CartsDAO.class);
 		this.btbd = mock(BookToBuyDAO.class);
-		this.cs = new CartsService(bs, cd, btbd);
+		this.cs = new CartService(bs, cd, btbd);
 	}
 
 	@Test // Happy Path
