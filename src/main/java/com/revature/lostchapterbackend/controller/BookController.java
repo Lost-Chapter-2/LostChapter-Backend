@@ -101,7 +101,7 @@ public class BookController {
 	@PostMapping(path = "/books")
 	public ResponseEntity<Object> addNewBook(@RequestBody AddOrUpdateBookDTO dto) throws SynopsisInputException {
 
-		logger.info("BookController.addNewBook() invoked.");
+		logger.info("BookController.addNewBook() invoked."+ dto);
 
 		try {
 			System.out.println("controller syso:" + dto.getSaleDiscountRate());
