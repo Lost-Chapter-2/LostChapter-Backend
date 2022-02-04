@@ -49,14 +49,14 @@ create table if not exists book_to_buy (
 );
 
 create table if not exists usr (
-	id serial unique not null primary key,
+	user_id serial unique not null primary key,
 	username varchar, 
-	password varchar, 
+	passwrd varchar, 
 	first_name varchar, 
 	last_name varchar, 
 	email varchar, 
 	birthday date, 
-	role varchar
+	user_role varchar
 );
 
 create table if not exists cart (

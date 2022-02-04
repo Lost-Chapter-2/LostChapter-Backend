@@ -35,13 +35,12 @@ public class User {
 	}
 
 	public User(String username, String password, String firstName, String lastName,  String email,
-			LocalDate birthday, String address, String role) {
+			LocalDate birthday, String role) {
 		super();
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		
 		this.email = email;
 		this.birthday = birthday;
 		this.role = role;
@@ -138,7 +137,5 @@ public class User {
 				&& userId == other.userId && Objects.equals(username, other.username);
 	}
 
-	
-	
 
 }
