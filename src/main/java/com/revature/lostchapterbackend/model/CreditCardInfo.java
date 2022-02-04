@@ -29,11 +29,10 @@ public class CreditCardInfo {
 	
 	@OneToOne
 	@JoinColumn(name="shipping_info_id")
-	private int shippingInfoId;
-
-	public CreditCardInfo(int ccInfoId, String nameOnCard, int cardNumber, int cvv, int expirationMonth,
-			int expirationYear, int billingZip, String creditCardType, int shippingInfoId) {
-		super();
+	private ShippingInformation shippingInfo;
+	
+	
+	public CreditCardInfo() {
 		this.ccInfoId = ccInfoId;
 		this.nameOnCard = nameOnCard;
 		this.cardNumber = cardNumber;
@@ -42,94 +41,115 @@ public class CreditCardInfo {
 		this.expirationYear = expirationYear;
 		this.billingZip = billingZip;
 		this.creditCardType = creditCardType;
-		this.shippingInfoId = shippingInfoId;
+		this.shippingInfo = shippingInfo;
 	}
+
 
 	public int getCcInfoId() {
 		return ccInfoId;
 	}
 
+
 	public void setCcInfoId(int ccInfoId) {
 		this.ccInfoId = ccInfoId;
 	}
+
 
 	public String getNameOnCard() {
 		return nameOnCard;
 	}
 
+
 	public void setNameOnCard(String nameOnCard) {
 		this.nameOnCard = nameOnCard;
 	}
+
 
 	public int getCardNumber() {
 		return cardNumber;
 	}
 
+
 	public void setCardNumber(int cardNumber) {
 		this.cardNumber = cardNumber;
 	}
+
 
 	public int getCvv() {
 		return cvv;
 	}
 
+
 	public void setCvv(int cvv) {
 		this.cvv = cvv;
 	}
+
 
 	public int getExpirationMonth() {
 		return expirationMonth;
 	}
 
+
 	public void setExpirationMonth(int expirationMonth) {
 		this.expirationMonth = expirationMonth;
 	}
+
 
 	public int getExpirationYear() {
 		return expirationYear;
 	}
 
+
 	public void setExpirationYear(int expirationYear) {
 		this.expirationYear = expirationYear;
 	}
+
 
 	public int getBillingZip() {
 		return billingZip;
 	}
 
+
 	public void setBillingZip(int billingZip) {
 		this.billingZip = billingZip;
 	}
+
 
 	public String getCreditCardType() {
 		return creditCardType;
 	}
 
+
 	public void setCreditCardType(String creditCardType) {
 		this.creditCardType = creditCardType;
 	}
 
-	public int getShippingInfoId() {
-		return shippingInfoId;
+
+	public ShippingInformation getShippingInfo() {
+		return shippingInfo;
 	}
 
-	public void setShippingInfoId(int shippingInfoId) {
-		this.shippingInfoId = shippingInfoId;
+
+	public void setShippingInfo(ShippingInformation shippingInfo) {
+		this.shippingInfo = shippingInfo;
 	}
+
 
 	@Override
 	public String toString() {
 		return "CreditCardInfo [ccInfoId=" + ccInfoId + ", nameOnCard=" + nameOnCard + ", cardNumber=" + cardNumber
 				+ ", cvv=" + cvv + ", expirationMonth=" + expirationMonth + ", expirationYear=" + expirationYear
-				+ ", billingZip=" + billingZip + ", creditCardType=" + creditCardType + ", shippingInfoId="
-				+ shippingInfoId + "]";
+				+ ", billingZip=" + billingZip + ", creditCardType=" + creditCardType + ", shippingInfo=" + shippingInfo
+				+ "]";
 	}
+
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(billingZip, cardNumber, ccInfoId, creditCardType, cvv, expirationMonth, expirationYear,
-				nameOnCard, shippingInfoId);
+				nameOnCard, shippingInfo);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -143,9 +163,10 @@ public class CreditCardInfo {
 		return billingZip == other.billingZip && cardNumber == other.cardNumber && ccInfoId == other.ccInfoId
 				&& Objects.equals(creditCardType, other.creditCardType) && cvv == other.cvv
 				&& expirationMonth == other.expirationMonth && expirationYear == other.expirationYear
-				&& Objects.equals(nameOnCard, other.nameOnCard) && shippingInfoId == other.shippingInfoId;
+				&& Objects.equals(nameOnCard, other.nameOnCard) && Objects.equals(shippingInfo, other.shippingInfo);
 	}
 	
+
 	
 
 }
