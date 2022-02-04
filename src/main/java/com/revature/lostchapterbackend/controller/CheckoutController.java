@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.lostchapterbackend.annotation.Customer;
-import com.revature.lostchapterbackend.model.Carts;
+import com.revature.lostchapterbackend.model.Cart;
 import com.revature.lostchapterbackend.model.Checkout;
-import com.revature.lostchapterbackend.model.TransactionKeeper;
 import com.revature.lostchapterbackend.model.User;
 import com.revature.lostchapterbackend.service.CartService;
 import com.revature.lostchapterbackend.service.CheckoutService;
@@ -43,18 +42,18 @@ public class CheckoutController {
 	public ResponseEntity<Object> payout(@RequestBody Checkout payout) {
 
 		try {
-			TransactionKeeper tk;
+			Checkout tk;
 			// main way to get cartId
 			User currentlyLoggedInUser = (User) req.getSession().getAttribute("currentUser");
 
-			Carts c = css.getCartById(String.valueOf(currentlyLoggedInUser.getId()));
+			Cart c = css.getCartById(String.valueOf(currentlyLoggedInUser.getUserId()));
 			validateCheckoutUtil.verifyCheckout(payout); // validates card information
 
 			// removes all the spaces in the card number when user inputs spaces
-			payout.setCardNumber(payout.getCardNumber().trim().replaceAll("\\s+", ""));
+			payout.setOrderNumber(payout.getOrderNumber().trim().replaceAll("\\s+", ""));
 
 			// checks if card already exists
-			Checkout getCardNumber = cs.findByCardNumber(payout.getCardNumber());
+			Checkout getCardNumber = cs.findByCardNumber(payout.getOrderNumber());
 			// if it doesn't ...
 			if (getCardNumber == null) {
 				payout.setCardBalance(10000);
@@ -80,7 +79,7 @@ public class CheckoutController {
 	public ResponseEntity<Object> getTransactionId(@PathVariable("transactionId") String transacId) {
 		
 		try {
-			TransactionKeeper transaction = cs.getTransactionById(transacId);		
+			Checkout transaction = cs.getTransactionById(transacId);		
 			return ResponseEntity.status(200).body(transaction);
 		} catch (InvalidParameterException e) {
 			return ResponseEntity.status(400).body(e.getMessage());
