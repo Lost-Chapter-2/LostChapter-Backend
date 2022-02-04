@@ -18,16 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.lostchapterbackend.annotation.Customer;
 import com.revature.lostchapterbackend.exceptions.BookNotFoundException;
 import com.revature.lostchapterbackend.exceptions.OutOfStockException;
-import com.revature.lostchapterbackend.model.Carts;
-import com.revature.lostchapterbackend.service.CartsService;
+import com.revature.lostchapterbackend.model.Cart;
+
+
 
 
 @RestController
 @CrossOrigin(originPatterns = "*", allowCredentials = "true")
-public class CartsController {
+public class CartController {
 
 	@Autowired
-	private CartsService cs;
+	private CartService cs;
 
 	private final String PATTERN = "[0-9]+"; // checks String if it only contains numbers
 	
@@ -38,7 +39,7 @@ public class CartsController {
 			@RequestParam("bookId") String bookId, @RequestParam("quantityToBuy") String quantityToBuy) throws BookNotFoundException {
 		// Aspect or another class for protecting endpoint
 		try {
-			Carts currentCart = null;
+			Cart currentCart = null;
 			if (userId.matches(PATTERN) && bookId.matches(PATTERN) && quantityToBuy.matches(PATTERN)) {
 				currentCart = cs.addBooksToCart(currentCart, userId, bookId, quantityToBuy);
 				return ResponseEntity.status(200).body(currentCart);
@@ -58,7 +59,7 @@ public class CartsController {
 		// Aspect or another class for protecting endpoint
 		try {
 
-			Carts getCartById = cs.getCartById(userId);
+			Cart getCartById = cs.getCartById(userId);
 			return ResponseEntity.status(200).body(getCartById);
 
 		} catch (InvalidParameterException e) {
@@ -74,7 +75,7 @@ public class CartsController {
 			@RequestParam(name = "bookId", required = false) String bookId) throws BookNotFoundException, NoResultException {
 
 		try {
-			Carts currentCart = null;
+			Cart currentCart = null;
 			if (bookId != null && (cartId.matches(PATTERN) && bookId.matches(PATTERN))) {
 				currentCart = cs.delteteProductInCart(currentCart, cartId, bookId);
 				return ResponseEntity.status(200).body(currentCart);
