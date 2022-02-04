@@ -19,7 +19,7 @@ import com.revature.lostchapterbackend.annotation.Customer;
 import com.revature.lostchapterbackend.exceptions.BookNotFoundException;
 import com.revature.lostchapterbackend.exceptions.OutOfStockException;
 import com.revature.lostchapterbackend.model.Carts;
-import com.revature.lostchapterbackend.service.CartsService;
+import com.revature.lostchapterbackend.service.CartService;
 
 
 @RestController
@@ -27,7 +27,7 @@ import com.revature.lostchapterbackend.service.CartsService;
 public class CartsController {
 
 	@Autowired
-	private CartsService cs;
+	private CartService cs;
 
 	private final String PATTERN = "[0-9]+"; // checks String if it only contains numbers
 	

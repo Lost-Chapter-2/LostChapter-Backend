@@ -9,26 +9,26 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.revature.lostchapterbackend.dao.BookToBuyDAO;
-import com.revature.lostchapterbackend.dao.CartsDAO;
+import com.revature.lostchapterbackend.dao.CartDAO;
 import com.revature.lostchapterbackend.exceptions.BookNotFoundException;
 import com.revature.lostchapterbackend.exceptions.OutOfStockException;
 import com.revature.lostchapterbackend.model.Book;
 import com.revature.lostchapterbackend.model.BookToBuy;
-import com.revature.lostchapterbackend.model.Carts;
+import com.revature.lostchapterbackend.model.Cart;
 
 @Service
-public class CartsService {
+public class CartService {
 
 	@Autowired
 	private BookService bs;
 
 	@Autowired
-	private CartsDAO cd; // using JPA Repository
+	private CartDAO cd; // using JPA Repository
 
 	@Autowired
 	private BookToBuyDAO btbd;
 
-	public CartsService(BookService bs, CartsDAO cd, BookToBuyDAO btbd) {
+	public CartService(BookService bs, CartDAO cd, BookToBuyDAO btbd) {
 		// For mocking
 		// For Unit Testing of Carts Service
 		this.bs = bs;
@@ -36,7 +36,7 @@ public class CartsService {
 		this.btbd = btbd;
 	}
 
-	public Carts getCartById(String id) {
+	public Cart getCartById(String id) {
 
 		try {
 			int cartId = Integer.parseInt(id);
@@ -48,7 +48,7 @@ public class CartsService {
 		}
 	}
 
-	public Carts addBooksToCart(Carts currentCart, String userId, String bookId, String quantityToBuy)
+	public Cart addBooksToCart(Cart currentCart, String userId, String bookId, String quantityToBuy)
 			throws OutOfStockException, BookNotFoundException {
 
 		currentCart = this.getCartById(userId); // checking if carts exist
@@ -95,7 +95,7 @@ public class CartsService {
 		return result;
 	}
 
-	public Carts delteteProductInCart(Carts currentCart, String cartId, String productId) throws BookNotFoundException {
+	public Cart delteteProductInCart(Cart currentCart, String cartId, String productId) throws BookNotFoundException {
 		currentCart = this.getCartById(cartId);
 		int prodId = Integer.parseInt(productId);
 
@@ -122,7 +122,7 @@ public class CartsService {
 		return cd.saveAndFlush(currentCart);
 	}
 
-	public Carts delteteAllProductInCart(Carts currentCart, String cartId) {
+	public Cart delteteAllProductInCart(Cart currentCart, String cartId) {
 		currentCart = this.getCartById(cartId);
 
 		List<BookToBuy> currentBooksInTheList = currentCart.getBooksToBuy();

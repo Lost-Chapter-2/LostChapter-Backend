@@ -18,7 +18,7 @@ import com.revature.lostchapterbackend.model.Carts;
 import com.revature.lostchapterbackend.model.Checkout;
 import com.revature.lostchapterbackend.model.TransactionKeeper;
 import com.revature.lostchapterbackend.model.User;
-import com.revature.lostchapterbackend.service.CartsService;
+import com.revature.lostchapterbackend.service.CartService;
 import com.revature.lostchapterbackend.service.CheckoutService;
 import com.revature.lostchapterbackend.utility.ValidateCheckoutUtil;
 
@@ -36,7 +36,7 @@ public class CheckoutController {
 	private CheckoutService cs;
 
 	@Autowired
-	private CartsService css;
+	private CartService css;
 
 	@Customer
 	@PostMapping(path = "/user/checkout")
