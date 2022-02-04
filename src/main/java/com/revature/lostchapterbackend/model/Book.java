@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -16,6 +17,7 @@ import javax.persistence.Table;
 public class Book {
 
 	@Id
+	@Column(name="book_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int bookId;
 
@@ -32,6 +34,7 @@ public class Book {
 	private String author;
 
 	@ManyToOne
+	@JoinColumn(name="genre_id")
 	private Genre genre;
 
 	@Column(nullable = false)

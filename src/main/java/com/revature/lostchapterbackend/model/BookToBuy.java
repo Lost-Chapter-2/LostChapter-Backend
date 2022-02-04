@@ -2,20 +2,27 @@ package com.revature.lostchapterbackend.model;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 
 @Entity
+@Table
 public class BookToBuy {
 
 	@Id
+	@Column(name="book_to_buy_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne
+	@JoinColumn(name="book_id")
 	private Book books;
 
 	private int quantityToBuy;

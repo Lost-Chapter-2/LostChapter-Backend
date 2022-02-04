@@ -3,41 +3,48 @@ package com.revature.lostchapterbackend.model;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
-public class Carts {
+@Table
+public class Cart {
 
 	@Id
+	@Column(name="cart_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int cartId;
 
 	@OneToOne
+	@JoinColumn(name="user_id")
 	private Users user;
 
 	@OneToMany
+	@JoinColumn(name="book_to_buy_id")
 	private List<BookToBuy> booksToBuy;
 
-	public Carts() {
+	public Cart() {
 		super();
 	}
 	
-	public Carts(Users user) {
+	public Cart(Users user) {
 		super();
 		this.user = user;
 	}
 
-	public Carts(List<BookToBuy> booksToBuy) {
+	public Cart(List<BookToBuy> booksToBuy) {
 		super();
 		this.booksToBuy = booksToBuy;
 	}
 
-	public Carts(int cartId, Users user, List<BookToBuy> booksToBuy) {
+	public Cart(int cartId, Users user, List<BookToBuy> booksToBuy) {
 		super();
 		this.cartId = cartId;
 		this.user = user;
@@ -81,7 +88,7 @@ public class Carts {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Carts other = (Carts) obj;
+		Cart other = (Cart) obj;
 		return Objects.equals(booksToBuy, other.booksToBuy) && cartId == other.cartId
 				&& Objects.equals(user, other.user);
 	}
