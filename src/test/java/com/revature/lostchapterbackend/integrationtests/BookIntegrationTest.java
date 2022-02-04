@@ -3,7 +3,7 @@ package com.revature.lostchapterbackend.integrationtests;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import com.revature.lostchapterbackend.model.Users;
+import com.revature.lostchapterbackend.model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.Assertions;
@@ -47,7 +47,7 @@ public class BookIntegrationTest {
 
 	private Genre g;
 	private Genre g2;
-	private Users admin;
+	private User admin;
 
 	@BeforeEach
 	public void setUp() {
@@ -80,7 +80,7 @@ public class BookIntegrationTest {
 				false, 0.99, 10.99, "");
 		em.persist(actualBook3);
 
-		admin = new Users("test123",
+		admin = new User("test123",
 				"5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8",
 				"testfn","testln","test123@gmail.com",dt,
 				"address123","Admin");

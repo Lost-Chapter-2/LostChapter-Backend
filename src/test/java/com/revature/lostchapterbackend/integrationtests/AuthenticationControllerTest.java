@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.lostchapterbackend.dto.LoginDto;
 import com.revature.lostchapterbackend.dto.SignUpDto;
 import com.revature.lostchapterbackend.model.Carts;
-import com.revature.lostchapterbackend.model.Users;
+import com.revature.lostchapterbackend.model.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +45,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users user1 = new Users("test123","5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8","testfn",
+        User user1 = new User("test123","5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8","testfn",
                 "testln","test123@gmail.com",dt,
                 "address123","customer");
         session.persist(user1);
@@ -73,7 +73,7 @@ public class AuthenticationControllerTest {
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/login")
                 .content(jsonToSend).contentType(MediaType.APPLICATION_JSON);
 
-        Users expectedUser = new Users("test123","5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8","testfn",
+        User expectedUser = new User("test123","5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8","testfn",
 
                 "testln","test123@gmail.com",dt,
                 "address123","customer");
@@ -130,7 +130,7 @@ public class AuthenticationControllerTest {
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/signup")
                 .content(jsonToSend).contentType(MediaType.APPLICATION_JSON);
 
-        Users expectedUser = new Users("testuser1",
+        User expectedUser = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","test@list.com",
                 dt,"addresswest","Customer");
@@ -339,7 +339,7 @@ public class AuthenticationControllerTest {
     @Test
     public void testCheckLoginStatus_positive() throws Exception {
     	  LocalDate dt = LocalDate.parse("2000-11-01");
-        Users fakeUser = new Users("test123",
+        User fakeUser = new User("test123",
                 "5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8",
                 "testfn", "testln","test123@gmail.com",dt,
                 "address123","Customer");
@@ -359,7 +359,7 @@ public class AuthenticationControllerTest {
     @Test
     public void testCheckLoginStatus_negative() throws Exception {
     	  LocalDate dt = LocalDate.parse("2000-11-01");
-        Users fakeUser = new Users("test123",
+        User fakeUser = new User("test123",
                 "5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8",
                 "testfn", "testln","test123@gmail.com",dt,
                 "address123","Customer");
@@ -380,7 +380,7 @@ public class AuthenticationControllerTest {
 //        Session session = em.unwrap(Session.class);
 //        Transaction tx = session.beginTransaction();
     	  LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("test1",
+        User u = new User("test1",
                 "5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8",
                 "testf", "testl","test989@gmail.com",dt,
                 "addresstest","Customer");
@@ -406,7 +406,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","test@list.com",
                 dt,"addresswest","Customer");
@@ -423,7 +423,7 @@ public class AuthenticationControllerTest {
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.put("/user").session(session1)
                 .content(jsonToSend).contentType(MediaType.APPLICATION_JSON);
 
-        Users expectedUser = new Users("testuser1",
+        User expectedUser = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","test@list.com",
                 dt,"addresswest","Customer");
@@ -442,7 +442,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("",
+        User u = new User("",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","test@list.com",
                 dt,"addresswest","Customer");
@@ -478,7 +478,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "",
                 "testfirstname","testlastname","test@list.com",
                 dt,"addresswest","Customer");
@@ -506,7 +506,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "","testlastname","test@list.com",
                 dt,"addresswest","Customer");
@@ -535,7 +535,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","","test@list.com",
                 dt,"addresswest","Customer");
@@ -563,7 +563,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","test@list.com",
                 dt,"addresswest","Customer");
@@ -591,7 +591,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","test@list.com",
                 dt,"addresswest","Customer");
@@ -619,7 +619,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","",
                 dt,"addresswest","Customer");
@@ -648,7 +648,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","test@list.com",
                 dt,"","Customer");
@@ -676,7 +676,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","test@list.com",
                 dt,"addresswest","Customer");
@@ -704,7 +704,7 @@ public class AuthenticationControllerTest {
         Session session = em.unwrap(Session.class);
         Transaction tx = session.beginTransaction();
         LocalDate dt = LocalDate.parse("2000-11-01");
-        Users u = new Users("testuser1",
+        User u = new User("testuser1",
                 "EF92B778BAFE771E89245B89ECBC08A44A4E166C06659911881F383D4473E94F",
                 "testfirstname","testlastname","test@list.com",
                 dt,"addresswest","");

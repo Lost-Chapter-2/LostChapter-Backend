@@ -24,7 +24,7 @@ public class Cart {
 
 	@OneToOne
 	@JoinColumn(name="user_id")
-	private Users user;
+	private User user;
 
 	@OneToMany
 	@JoinColumn(name="book_to_buy_id")
@@ -34,7 +34,7 @@ public class Cart {
 		super();
 	}
 	
-	public Cart(Users user) {
+	public Cart(User user) {
 		super();
 		this.user = user;
 	}
@@ -44,7 +44,7 @@ public class Cart {
 		this.booksToBuy = booksToBuy;
 	}
 
-	public Cart(int cartId, Users user, List<BookToBuy> booksToBuy) {
+	public Cart(int cartId, User user, List<BookToBuy> booksToBuy) {
 		super();
 		this.cartId = cartId;
 		this.user = user;
@@ -67,11 +67,11 @@ public class Cart {
 		this.booksToBuy = booksToBuy;
 	}
 
-	public Users getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

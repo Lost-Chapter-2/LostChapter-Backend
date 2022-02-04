@@ -24,6 +24,42 @@ values
 ('dcluetti', 'pass', 'Derron', 'Cluett', 'dcluetti@google.ru', '10/5/1994', 'customer'),				--19
 ('bpruej', 'pass', 'Basile', 'Prue', 'bpruej@bing.com', '9/25/1990', 'customer');						--20
 ​
+
+insert into book_price_data 
+(sale_is_active, sale_discount_rate, book_price, quantity_on_hand, book_id)
+values 
+( , ),			--1
+( , ),			--2
+( , ),			--3
+( , ),			--4
+( , ),			--5
+( , ),			--6
+( , ),			--7
+( , ),			--8
+( , ),			--9
+( , ),			--10
+( , ),			--11
+( , ),			--12
+( , ),			--13
+( , ),			--14
+( , ),			--15
+( , ),			--16
+( , ),			--17
+( , ),			--18
+( , ),			--19
+( , ),			--20
+( , ),			--31
+( , ),			--32
+( , ),			--33
+( , ),			--34
+( , ),			--35
+( , ),			--36
+( , ),			--37
+( , ),			--38
+( , ),			--39
+( , );			--40
+
+
 insert into book_to_buy 
 (book_id, quantity_to_buy)
 values 

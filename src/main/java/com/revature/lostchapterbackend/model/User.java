@@ -8,13 +8,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-public class Users {
+@Table(name="usr")
+public class User {
 	
 	@Id
+	@Column(name="user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int userId;
 	
 	@Column(unique=true)
 	private String username;
@@ -28,11 +31,11 @@ public class Users {
 	private String address;
 	private String role;
 	
-	public Users() {
+	public User() {
 		super();
 	}
 
-	public Users(String username, String password, String firstName, String lastName,  String email,
+	public User(String username, String password, String firstName, String lastName,  String email,
 			LocalDate birthday, String address, String role) {
 		super();
 		this.username = username;
@@ -46,12 +49,12 @@ public class Users {
 		this.role = role;
 	}
 
-	public int getId() {
-		return id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {
@@ -120,14 +123,14 @@ public class Users {
 
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", email=" + email + ", birthday=" + birthday + ", address=" + address
-				+ ", role=" + role + "]";
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", firstName="
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", birthday=" + birthday + ", address="
+				+ address + ", role=" + role + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, birthday, email, firstName, id, lastName, password, role, username);
+		return Objects.hash(address, birthday, email, firstName, lastName, password, role, userId, username);
 	}
 
 	@Override
@@ -138,13 +141,15 @@ public class Users {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Users other = (Users) obj;
+		User other = (User) obj;
 		return Objects.equals(address, other.address) && Objects.equals(birthday, other.birthday)
-				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName) && id == other.id
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
-				&& Objects.equals(role, other.role) && Objects.equals(username, other.username);
+				&& Objects.equals(role, other.role) && userId == other.userId
+				&& Objects.equals(username, other.username);
 	}
 
+	
 	
 
 }

@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockHttpSession;
 
 import com.revature.lostchapterbackend.aspect.SecurityAspect;
-import com.revature.lostchapterbackend.model.Users;
+import com.revature.lostchapterbackend.model.User;
 
 public class SecurityAspectUnitTests {
 
@@ -55,7 +55,7 @@ public class SecurityAspectUnitTests {
 	@Test
 	public void test_AuthorizedUser_positive() throws Throwable {
 		
-		Users testUser = new Users(); 
+		User testUser = new User(); 
 		
 		MockHttpSession mockSession = new MockHttpSession();
 		mockSession.setAttribute("currentUser", testUser);
@@ -69,7 +69,7 @@ public class SecurityAspectUnitTests {
 	@Test
 	public void test_Customer_positive() throws Throwable {
 		
-		Users testUser = new Users();
+		User testUser = new User();
 		testUser.setRole("Customer");
 		
 		MockHttpSession mockSession = new MockHttpSession(); 
@@ -98,7 +98,7 @@ public class SecurityAspectUnitTests {
 	@Test
 	public void test_Customer_not_customer_role_negative() throws Throwable {
 		
-		Users testUser = new Users();
+		User testUser = new User();
 		testUser.setRole("potato");
 		
 		MockHttpSession mockSession = new MockHttpSession(); 
@@ -115,7 +115,7 @@ public class SecurityAspectUnitTests {
 	@Test
 	public void test_Admin_positive() throws Throwable {
 		
-		Users testUser = new Users();
+		User testUser = new User();
 		testUser.setRole("Admin");
 		MockHttpSession mockSession = new MockHttpSession(); 
 		mockSession.setAttribute("currentUser", testUser);
@@ -144,7 +144,7 @@ public class SecurityAspectUnitTests {
 	@Test
 	public void test_Admin_role_not_Admin_negative() throws Throwable {
 		
-		Users testUser = new Users();
+		User testUser = new User();
 		testUser.setRole("potato");
 		
 		MockHttpSession mockSession = new MockHttpSession(); 
@@ -161,7 +161,7 @@ public class SecurityAspectUnitTests {
 	@Test
 	public void test_AdminAndCustomer_Admin_positive() throws Throwable {
 		
-		Users testUser = new Users();
+		User testUser = new User();
 		testUser.setRole("Admin");
 		MockHttpSession mockSession = new MockHttpSession(); 
 		mockSession.setAttribute("currentUser", testUser);
@@ -175,7 +175,7 @@ public class SecurityAspectUnitTests {
 	@Test
 	public void test_AdminAndCustomer_Customer_positive() throws Throwable {
 		
-		Users testUser = new Users();
+		User testUser = new User();
 		testUser.setRole("Customer");
 		MockHttpSession mockSession = new MockHttpSession(); 
 		mockSession.setAttribute("currentUser", testUser);
@@ -203,7 +203,7 @@ public class SecurityAspectUnitTests {
 	@Test
 	public void test_AdminAndCustomer_role_not_admin_or_customer_negative() throws Throwable {
 		
-		Users testUser = new Users();
+		User testUser = new User();
 		testUser.setRole("potato");
 		
 		MockHttpSession mockSession = new MockHttpSession(); 

@@ -31,7 +31,7 @@ import com.revature.lostchapterbackend.model.Book;
 import com.revature.lostchapterbackend.model.BookToBuy;
 import com.revature.lostchapterbackend.model.Carts;
 import com.revature.lostchapterbackend.model.Genre;
-import com.revature.lostchapterbackend.model.Users;
+import com.revature.lostchapterbackend.model.User;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -47,7 +47,7 @@ public class CartIntegrationTests {
 	@Autowired
 	private ObjectMapper mapper; 
 	
-	private Users expectedUser; 
+	private User expectedUser; 
 	private BookToBuy positiveBookToBuy; 
 	private BookToBuy negativeBookToBuy; 
 	
@@ -101,7 +101,7 @@ public class CartIntegrationTests {
 		session.persist(noStockBook);
 		
 		LocalDate dt = LocalDate.parse("2018-11-01");
-		Users user = new Users();	//Id should be 1
+		User user = new User();	//Id should be 1
 		user.setUsername("test");
 		user.setPassword("5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8"); //its "password"
 		user.setFirstName("test");
@@ -123,7 +123,7 @@ public class CartIntegrationTests {
 		
 		session.close();
 		
-		this.expectedUser = new Users();
+		this.expectedUser = new User();
 		
 		this.expectedUser.setId(1);
 		this.expectedUser.setUsername("test");

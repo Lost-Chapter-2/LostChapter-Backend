@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-import org.apache.catalina.User;
+
 import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +15,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.lostchapterbackend.dto.SignUpDto;
-import com.revature.lostchapterbackend.model.Carts;
-import com.revature.lostchapterbackend.model.Users;
+import com.revature.lostchapterbackend.model.Cart;
+import com.revature.lostchapterbackend.model.User;
 
 @Repository
 public class UserDao {
@@ -28,35 +28,35 @@ public class UserDao {
 
 	// Sign up method
 	@Transactional
-	public Users addUser(SignUpDto dto, Carts c) {
-		Users createdUser = new Users(dto.getUsername(), dto.getPassword(), dto.getFirstName(), dto.getLastName(),
+	public User addUser(SignUpDto dto, Cart c) {
+		User createdUser = new User(dto.getUsername(), dto.getPassword(), dto.getFirstName(), dto.getLastName(),
 			 dto.getEmail(), dto.getBirthday(), dto.getAddress(), dto.getRole());
 
 		em.persist(createdUser);
 
-		c = new Carts(createdUser);
+		c = new Cart(createdUser);
 		em.persist(c);
 		return createdUser;
 	}
 
 	// Login method
 	@Transactional
-	public Users getUser(String username, String password) {
+	public User getUser(String username, String password) {
 		logger.info("UserDao.getUser() invoked");
 
-		Users user = em.createQuery("FROM Users u WHERE u.username = :username AND u.password = :password", Users.class)
+		User user = em.createQuery("FROM Users u WHERE u.username = :username AND u.password = :password", User.class)
 				.setParameter("username", username).setParameter("password", password).getSingleResult();
 
 		return user;
 	}
 
 	@Transactional
-	public Users getUser(String username) {
+	public User getUser(String username) {
 		logger.info("UserDao.getUser() invoked");
 
 		try {
 
-			Users user = em.createQuery("FROM Users u WHERE u.username = :username", Users.class)
+			User user = em.createQuery("FROM Users u WHERE u.username = :username", User.class)
 					.setParameter("username", username).getSingleResult();
 
 			return user;
@@ -68,8 +68,8 @@ public class UserDao {
 	// Delete User method
 	@Transactional
 	public void deleteUserById(int id) {
-		Users user = em.find(Users.class, id);
-		Carts cart = em.find(Carts.class, id);
+		User user = em.find(User.class, id);
+		Cart cart = em.find(Cart.class, id);
 		
 		em.remove(user);
 		em.remove(cart);
@@ -77,11 +77,11 @@ public class UserDao {
 
 	// Getting a user by email
 	@Transactional
-	public Users getUserByEmail(String email) {
+	public User getUserByEmail(String email) {
 		logger.info("UserDao.getUserByEmail() invoked");
 
 		try {
-			Users user = em.createQuery("FROM Users u WHERE u.email = :email", Users.class).setParameter("email", email)
+			User user = em.createQuery("FROM Users u WHERE u.email = :email", User.class).setParameter("email", email)
 					.getSingleResult();
 
 			return user;
@@ -97,10 +97,10 @@ public class UserDao {
 
 	// Updating a user's information
 	@Transactional
-	public Users updateUser(int id, Users updatedUserInfo) {
+	public User updateUser(int id, User updatedUserInfo) {
 		Session session = em.unwrap(Session.class);
 
-		Users currentlyLoggedInUser = session.find(Users.class, id);
+		User currentlyLoggedInUser = session.find(User.class, id);
 		currentlyLoggedInUser = updatedUserInfo;
 
 		session.merge(currentlyLoggedInUser);

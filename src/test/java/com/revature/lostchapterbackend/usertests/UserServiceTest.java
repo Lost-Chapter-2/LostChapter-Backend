@@ -16,7 +16,7 @@ import com.revature.lostchapterbackend.exceptions.InvalidLoginException;
 import com.revature.lostchapterbackend.exceptions.InvalidParameterException;
 import com.revature.lostchapterbackend.exceptions.UserNotFoundException;
 import com.revature.lostchapterbackend.model.Carts;
-import com.revature.lostchapterbackend.model.Users;
+import com.revature.lostchapterbackend.model.User;
 import com.revature.lostchapterbackend.service.UserService;
 import com.revature.lostchapterbackend.utility.HashUtil;
 
@@ -35,16 +35,16 @@ public class UserServiceTest {
 	@Test
 	public void testCreateUser_positive() throws NoSuchAlgorithmException, InvalidLoginException, InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", dt, "22nd Ave", "Customer");
+		User user = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", dt, "22nd Ave", "Customer");
 		user.setId(1);
 		
 		SignUpDto createdUser = new SignUpDto("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", dt, "22nd Ave", "Customer");
 		Carts c = null;
 		Mockito.when(ud.addUser(createdUser, c)).thenReturn(user);
 		
-		Users actual = us.createUser(createdUser);
+		User actual = us.createUser(createdUser);
 		
-		Users expected = us.createUser(new SignUpDto("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", dt, "22nd Ave", "Customer"));
+		User expected = us.createUser(new SignUpDto("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", dt, "22nd Ave", "Customer"));
 		expected.setId(1);
 		
 		Assertions.assertEquals(expected, actual);
@@ -189,17 +189,17 @@ public class UserServiceTest {
 	@Test
 	public void testGetUser_positive() throws NoSuchAlgorithmException, InvalidLoginException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user.setId(1);
 		user.setPassword(HashUtil.hashPassword("password1", "SHA-256"));
 		
 		Mockito.when(ud.getUser("JDoe")).thenReturn(user);
 		
-		Users actual = us.getUser("JDoe", "password1");
+		User actual = us.getUser("JDoe", "password1");
 		actual.setId(1);
 		actual.setPassword(HashUtil.hashInputPassword("password1", "SHA-256"));
 		
-		Users expected = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User expected = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		expected.setId(1);
 		expected.setPassword(HashUtil.hashPassword("password1", "SHA-256"));
 		
@@ -209,7 +209,7 @@ public class UserServiceTest {
 	@Test
 	public void testDeleteUserByID_positive() throws UserNotFoundException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user.setId(1);
 		
 		us.deleteUserById(user);
@@ -225,14 +225,14 @@ public class UserServiceTest {
 	
 	@Test
 	public void testGetUserByEmail_positive() throws InvalidParameterException {
-		Users user = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user.setId(1);
 		
 		Mockito.when(ud.getUserByEmail("jdoe@gmail.com")).thenReturn(user);
 		
-		Users actual = us.getUserByEmail("jdoe@gmail.com");
+		User actual = us.getUserByEmail("jdoe@gmail.com");
 		
-		Users expected = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User expected = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		expected.setId(1);
 		
 		Assertions.assertEquals(expected, actual);
@@ -248,17 +248,17 @@ public class UserServiceTest {
 	
 	@Test
 	public void testUpdateUser_ChangeName_positive() throws InvalidParameterException {
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "Jane", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user2 = new User("JDoe", "password1", "Jane", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user2.setId(1);
 		
 		Mockito.when(ud.updateUser(1, user2)).thenReturn(user2);
 		
-		Users actual = us.updateUser(user1, user2);
+		User actual = us.updateUser(user1, user2);
 		
-		Users expected = new Users("JDoe", "password1", "Jane", "Doe", "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User expected = new User("JDoe", "password1", "Jane", "Doe", "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		expected.setId(1);
 		
 		Assertions.assertEquals(expected, actual);
@@ -267,17 +267,17 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserCannotChange_Username_positive() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JaneD", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user2 = new User("JaneD", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user2.setId(1);
 		
 		Mockito.when(ud.updateUser(1, user2)).thenReturn(user1);
 		
-		Users actual = us.updateUser(user1, user2);
+		User actual = us.updateUser(user1, user2);
 		
-		Users expected = new Users("JDoe", "password1", "John", "Doe", "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User expected = new User("JDoe", "password1", "John", "Doe", "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		expected.setId(1);
 		
 		Assertions.assertEquals(expected, actual);
@@ -286,17 +286,17 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserCannotChange_Password_positive() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "pass", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user2 = new User("JDoe", "pass", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user2.setId(1);
 		
 		Mockito.when(ud.updateUser(1, user2)).thenReturn(user1);
 		
-		Users actual = us.updateUser(user1, user2);
+		User actual = us.updateUser(user1, user2);
 		
-		Users expected = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User expected = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		expected.setId(1);
 		
 		Assertions.assertEquals(expected, actual);
@@ -305,17 +305,17 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserCannotChange_Role_positive() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Admin");
+		User user2 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Admin");
 		user2.setId(1);
 		
 		Mockito.when(ud.updateUser(1, user2)).thenReturn(user1);
 		
-		Users actual = us.updateUser(user1, user2);
+		User actual = us.updateUser(user1, user2);
 		
-		Users expected = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User expected = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		expected.setId(1);
 		
 		Assertions.assertEquals(expected, actual);
@@ -324,10 +324,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserBlankInput_FirstName_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "   ", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user2 = new User("JDoe", "password1", "   ", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user2.setId(1);
 		
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
@@ -338,10 +338,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserBlankInput_LastName_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "John", "  ", "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user2 = new User("JDoe", "password1", "John", "  ", "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user2.setId(1);
 		
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
@@ -352,10 +352,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUser_BellowAgeRange_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user2 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user2.setId(1);
 		
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
@@ -366,10 +366,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUser_AboveAgeRange_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user2 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user2.setId(1);
 		
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
@@ -380,10 +380,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserBlankInput_Email_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "John", "Doe",  "  ", "01/1/1997", "22nd Ave", "Customer");
+		User user2 = new User("JDoe", "password1", "John", "Doe",  "  ", "01/1/1997", "22nd Ave", "Customer");
 		user2.setId(1);
 		
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
@@ -394,10 +394,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserBlankInput_BirthDay_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "  ", "22nd Ave", "Customer");
+		User user2 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "  ", "22nd Ave", "Customer");
 		user2.setId(1);
 		
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
@@ -408,10 +408,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserBlankInput_Address_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "  ", "Customer");
+		User user2 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "  ", "Customer");
 		user2.setId(1);
 		
 		Assertions.assertThrows(InvalidParameterException.class, () -> {
@@ -422,10 +422,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserUsernameHasMoreThan255Characters_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+		User user2 = new User("JDoeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 				+ "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 				+ "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 				+ "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
@@ -440,10 +440,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserFirstNameHasMoreThan255Characters_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "Johnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
+		User user2 = new User("JDoe", "password1", "Johnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
 				+ "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
 				+ "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn"
 				+ "nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
@@ -457,10 +457,10 @@ public class UserServiceTest {
 	@Test
 	public void testUpdateUserLastNameHasMoreThan255Characters_negative() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user1 = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user1 = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user1.setId(1);
 		
-		Users user2 = new Users("JDoe", "password1", "John", "Doeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+		User user2 = new User("JDoe", "password1", "John", "Doeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 				+ "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 				+ "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
 				+ "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
@@ -475,14 +475,14 @@ public class UserServiceTest {
 	@Test
 	public void testGetUserByUsername_positive() throws InvalidParameterException {
 		LocalDate dt = LocalDate.parse("2000-11-01");
-		Users user = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User user = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		user.setId(1);
 		
 		Mockito.when(ud.getUser("JDoe")).thenReturn(user);
 		
-		Users actual = us.getUserByUsername("JDoe");
+		User actual = us.getUserByUsername("JDoe");
 		
-		Users expected = new Users("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
+		User expected = new User("JDoe", "password1", "John", "Doe",  "jdoe@gmail.com", "01/1/1997", "22nd Ave", "Customer");
 		expected.setId(1);
 		
 		Assertions.assertEquals(expected, actual);

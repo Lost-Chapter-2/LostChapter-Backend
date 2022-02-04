@@ -7,6 +7,7 @@ drop table if exists ordr cascade;
 drop table if exists cart cascade;
 drop table if exists usr cascade;
 drop table if exists book_to_buy cascade;
+drop table if exists book_price_data cascade;
 drop table if exists book cascade;
 drop table if exists genre cascade;
 
@@ -26,20 +27,25 @@ create table if not exists book (
      synopsis varchar not null,
      author varchar not null,
      genre_id integer references genre,
-	 quantity integer not null,
      year integer not null,
-     edition varchar not null,
      publisher varchar not null,
-	 sale_is_active boolean not null,
-	 sale_discount_rate float8,
-	 book_price float8,
 	 book_image varchar not null
+);
+
+create table if not exists book_price_data (
+	book_price_data_id serial unique not null primary key,
+    sale_is_active boolean not null,
+	sale_discount_rate float8,
+	book_price float8,
+	quantity_on_hand integer,
+	book_id integer references book
 );
 
 create table if not exists book_to_buy (
      book_to_buy_id serial unique not null primary key,
      book_id integer references book,
      quantity_to_buy integer not null
+ 
 );
 
 create table if not exists usr (
