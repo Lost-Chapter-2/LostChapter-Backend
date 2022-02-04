@@ -3,33 +3,36 @@ package com.revature.lostchapterbackend.model;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
-public class TransactionKeeper {
+public class Checkout {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int transactionId;
-	private String orderNumber;
+	@OneToOne
+	@JoinColumn(name="order_id")
+	private Order orderNumber;
 	private double totalPrice;
 	@ElementCollection
 	private List<String> previousOrder;
 	private LocalDateTime transactionDate;
 
-	public TransactionKeeper() {
+	public Checkout() {
 		super();
 	}
 
-	public TransactionKeeper(String orderNumber, double totalPrice, List<String> previousOrder,
+	public Checkout(String orderNumber, double totalPrice, List<String> previousOrder,
 			LocalDateTime transactionDate) {
 		super();
-		this.orderNumber = orderNumber;
+		this.orderNumber = new Order();
 		this.totalPrice = totalPrice;
 		this.previousOrder = previousOrder;
 		this.transactionDate = transactionDate;
@@ -43,11 +46,11 @@ public class TransactionKeeper {
 		this.transactionId = transactionId;
 	}
 
-	public String getOrderNumber() {
+	public Order getOrderNumber() {
 		return orderNumber;
 	}
 
-	public void setOrderNumber(String orderNumber) {
+	public void setOrderNumber(Order orderNumber) {
 		this.orderNumber = orderNumber;
 	}
 
@@ -88,7 +91,7 @@ public class TransactionKeeper {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TransactionKeeper other = (TransactionKeeper) obj;
+		Checkout other = (Checkout) obj;
 		return Objects.equals(orderNumber, other.orderNumber) && Objects.equals(previousOrder, other.previousOrder)
 				&& Double.doubleToLongBits(totalPrice) == Double.doubleToLongBits(other.totalPrice)
 				&& Objects.equals(transactionDate, other.transactionDate) && transactionId == other.transactionId;

@@ -9,8 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import com.revature.lostchapterbackend.model.Users;
-import com.revature.lostchapterbackend.model.Book;
 
 
 @Entity
@@ -24,7 +22,7 @@ public class Review {
 	private Book book;
 	
 	@Column(nullable = false)
-	private Users user;
+	private User user;
 	
 	private String reviewTitle;
 	private String reviewText;
@@ -50,7 +48,7 @@ public class Review {
 		super();
 	}
 	
-	public Review(int reviewId, Book book, Users user, String reviewTitle, String reviewText, int ratingOne,
+	public Review(int reviewId, Book book, User user, String reviewTitle, String reviewText, int ratingOne,
 			int ratingTwo, int ratingThree, LocalDateTime sent_at) {
 		super();
 		this.reviewId = reviewId;
@@ -81,10 +79,10 @@ public class Review {
 	public void setBook(Book book) {
 		this.book = book;
 	}
-	public Users getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(Users user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 	public String getReviewTitle() {

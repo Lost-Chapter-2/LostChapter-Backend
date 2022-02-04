@@ -29,10 +29,14 @@ public class Order {
 	private int cartId;
 
 	public Order(int orderId, int ccInfoId, int cartId) {
-		super();
+
 		this.orderId = orderId;
 		this.ccInfoId = ccInfoId;
 		this.cartId = cartId;
+	}
+
+	public Order() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getOrderId() {

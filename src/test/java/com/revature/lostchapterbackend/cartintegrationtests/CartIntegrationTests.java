@@ -29,7 +29,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.lostchapterbackend.dto.LoginDto;
 import com.revature.lostchapterbackend.model.Book;
 import com.revature.lostchapterbackend.model.BookToBuy;
-import com.revature.lostchapterbackend.model.Carts;
+import com.revature.lostchapterbackend.model.Cart;
 import com.revature.lostchapterbackend.model.Genre;
 import com.revature.lostchapterbackend.model.User;
 
@@ -114,7 +114,7 @@ public class CartIntegrationTests {
 		
 		session.persist(user);
 		
-		Carts cart = new Carts(user);
+		Cart cart = new Cart(user);
 		
 		session.persist(cart);
 		
@@ -125,7 +125,7 @@ public class CartIntegrationTests {
 		
 		this.expectedUser = new User();
 		
-		this.expectedUser.setId(1);
+		this.expectedUser.setUserId(1);
 		this.expectedUser.setUsername("test");
 		this.expectedUser.setPassword("5E884898DA28047151D0E56F8DC6292773603D0D6AABBDD62A11EF721D1542D8"); //its "password"
 		this.expectedUser.setFirstName("test");
@@ -158,7 +158,7 @@ public class CartIntegrationTests {
 		session.setAttribute("currentUser", this.expectedUser);
 		
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users/1/cart").param("bookId", "1").param("quantityToBuy", "1").session(session);
-		Carts expectedCart = new Carts();
+		Cart expectedCart = new Cart();
 
 		expectedCart.setUser(this.expectedUser);
 		expectedCart.setCartId(1);
@@ -186,7 +186,7 @@ public class CartIntegrationTests {
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users/1/cart").param("bookId", "1").param("quantityToBuy", "1").session(session);
 		this.mvc.perform(builder).andExpect(MockMvcResultMatchers.status().is(200));
 		
-		Carts expectedCart = new Carts();
+		Cart expectedCart = new Cart();
 		expectedCart.setUser(this.expectedUser);
 		expectedCart.setCartId(1);
 		ArrayList<BookToBuy> bookToBuyList = new ArrayList<>();
@@ -223,7 +223,7 @@ public class CartIntegrationTests {
 		session.setAttribute("currentUser", this.expectedUser);
 		
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users/1/cart").param("bookId", "1").param("quantityToBuy", "1").session(session);
-		Carts expectedCart = new Carts();
+		Cart expectedCart = new Cart();
 
 		expectedCart.setUser(this.expectedUser);
 		expectedCart.setCartId(1);
@@ -249,7 +249,7 @@ public class CartIntegrationTests {
 		session.setAttribute("currentUser", this.expectedUser);
 		
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users/1/cart").param("bookId", "1").param("quantityToBuy", "2").session(session);
-		Carts expectedCart = new Carts();
+		Cart expectedCart = new Cart();
 		
 		expectedCart.setUser(this.expectedUser);
 		expectedCart.setCartId(1);
@@ -286,7 +286,7 @@ public class CartIntegrationTests {
 		
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/users/1/cart").session(session);
 		
-		Carts expectedCart = new Carts();
+		Cart expectedCart = new Cart();
 		expectedCart.setUser(this.expectedUser);
 		expectedCart.setCartId(1);
 		ArrayList<BookToBuy> bookToBuyList = new ArrayList<>();
@@ -320,7 +320,7 @@ public class CartIntegrationTests {
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users/1/cart").param("bookId", "1").param("quantityToBuy", "1").session(session);
 		this.mvc.perform(builder).andExpect(MockMvcResultMatchers.status().is(200));
 		
-		Carts expectedCart = new Carts();
+		Cart expectedCart = new Cart();
 		expectedCart.setUser(this.expectedUser);
 		expectedCart.setCartId(1);
 		ArrayList<BookToBuy> bookToBuyList = new ArrayList<>();
@@ -355,7 +355,7 @@ public class CartIntegrationTests {
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/users/1/cart").param("bookId", "1").param("quantityToBuy", "2").session(session);
 		this.mvc.perform(builder).andExpect(MockMvcResultMatchers.status().is(200));
 		
-		Carts expectedCart = new Carts();
+		Cart expectedCart = new Cart();
 		expectedCart.setUser(this.expectedUser);
 		expectedCart.setCartId(1);
 		ArrayList<BookToBuy> bookToBuyList = new ArrayList<>();
