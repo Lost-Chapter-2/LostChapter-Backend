@@ -1,8 +1,5 @@
 package com.revature.lostchapterbackend.model;
-
-import java.util.List;
 import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,27 +25,12 @@ public class Cart {
 
 	@OneToMany
 	@JoinColumn(name="book_to_buy_id")
-	private List<BookToBuy> booksToBuy;
+	private int booksToBuyID;
 
 	public Cart() {
-		super();
-	}
-	
-	public Cart(User user) {
-		super();
-		this.user = user;
-	}
-
-	public Cart(List<BookToBuy> booksToBuy) {
-		super();
-		this.booksToBuy = booksToBuy;
-	}
-
-	public Cart(int cartId, User user, List<BookToBuy> booksToBuy) {
-		super();
-		this.cartId = cartId;
-		this.user = user;
-		this.booksToBuy = booksToBuy;
+		cartId = 0;
+		user = new User();
+		booksToBuyID = 0;
 	}
 
 	public int getCartId() {
@@ -59,14 +41,6 @@ public class Cart {
 		this.cartId = cartId;
 	}
 
-	public List<BookToBuy> getBooksToBuy() {
-		return booksToBuy;
-	}
-
-	public void setBooksToBuy(List<BookToBuy> booksToBuy) {
-		this.booksToBuy = booksToBuy;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -75,9 +49,17 @@ public class Cart {
 		this.user = user;
 	}
 
+	public int getBooksToBuyID() {
+		return booksToBuyID;
+	}
+
+	public void setBooksToBuyID(int booksToBuyID) {
+		this.booksToBuyID = booksToBuyID;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(booksToBuy, cartId, user);
+		return Objects.hash(booksToBuyID, cartId, user);
 	}
 
 	@Override
@@ -89,13 +71,12 @@ public class Cart {
 		if (getClass() != obj.getClass())
 			return false;
 		Cart other = (Cart) obj;
-		return Objects.equals(booksToBuy, other.booksToBuy) && cartId == other.cartId
-				&& Objects.equals(user, other.user);
+		return booksToBuyID == other.booksToBuyID && cartId == other.cartId && Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "Carts [cartId=" + cartId + ", user=" + user + ", booksToBuy=" + booksToBuy + "]";
+		return "Cart [cartId=" + cartId + ", user=" + user + ", booksToBuyID=" + booksToBuyID + "]";
 	}
-
+	
 }

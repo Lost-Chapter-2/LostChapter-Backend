@@ -28,7 +28,6 @@ public class User {
 	@Column(unique=true)
 	private String email;
 	private LocalDate birthday;
-	private String address;
 	private String role;
 	
 	public User() {
@@ -45,7 +44,6 @@ public class User {
 		
 		this.email = email;
 		this.birthday = birthday;
-		this.address = address;
 		this.role = role;
 	}
 
@@ -105,14 +103,6 @@ public class User {
 		this.birthday = birthday;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getRole() {
 		return role;
 	}
@@ -124,13 +114,13 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", email=" + email + ", birthday=" + birthday + ", address="
-				+ address + ", role=" + role + "]";
+				+ firstName + ", lastName=" + lastName + ", email=" + email + ", birthday=" + birthday + ", role="
+				+ role + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, birthday, email, firstName, lastName, password, role, userId, username);
+		return Objects.hash(birthday, email, firstName, lastName, password, role, userId, username);
 	}
 
 	@Override
@@ -142,11 +132,10 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(address, other.address) && Objects.equals(birthday, other.birthday)
-				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
-				&& Objects.equals(lastName, other.lastName) && Objects.equals(password, other.password)
-				&& Objects.equals(role, other.role) && userId == other.userId
-				&& Objects.equals(username, other.username);
+		return Objects.equals(birthday, other.birthday) && Objects.equals(email, other.email)
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName)
+				&& Objects.equals(password, other.password) && Objects.equals(role, other.role)
+				&& userId == other.userId && Objects.equals(username, other.username);
 	}
 
 	

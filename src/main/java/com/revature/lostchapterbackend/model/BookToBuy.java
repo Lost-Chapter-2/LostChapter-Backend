@@ -11,46 +11,39 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-@Table
+@Table(name="book_to_buy")
 public class BookToBuy {
 
 	@Id
 	@Column(name="book_to_buy_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int bookId;
 
 	@ManyToOne
 	@JoinColumn(name="book_id")
-	private Book books;
-
+	private Book book;
+	
+	@Column(name="quantity_to_buy")
 	private int quantityToBuy;
 
-	public BookToBuy() {
-		super();
+	public int getBookId() {
+		return bookId;
 	}
 
-	public BookToBuy(Book books, int quantityToBuy) {
-		super();
-		this.books = books;
-		this.quantityToBuy = quantityToBuy;
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
 	}
 
-	public int getId() {
-		return id;
+	public Book getBook() {
+		return book;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Book getBooks() {
-		return books;
-	}
-
-	public void setBooks(Book books) {
-		this.books = books;
+	public void setBook(Book book) {
+		this.book = book;
 	}
 
 	public int getQuantityToBuy() {
@@ -62,8 +55,13 @@ public class BookToBuy {
 	}
 
 	@Override
+	public String toString() {
+		return "BookToBuy [bookId=" + bookId + ", book=" + book + ", quantityToBuy=" + quantityToBuy + "]";
+	}
+
+	@Override
 	public int hashCode() {
-		return Objects.hash(books, id, quantityToBuy);
+		return Objects.hash(book, bookId, quantityToBuy);
 	}
 
 	@Override
@@ -75,11 +73,10 @@ public class BookToBuy {
 		if (getClass() != obj.getClass())
 			return false;
 		BookToBuy other = (BookToBuy) obj;
-		return Objects.equals(books, other.books) && id == other.id && quantityToBuy == other.quantityToBuy;
+		return Objects.equals(book, other.book) && bookId == other.bookId && quantityToBuy == other.quantityToBuy;
 	}
 
-	@Override
-	public String toString() {
-		return "BookToBuy [id=" + id + ", books=" + books + ", quantityToBuy=" + quantityToBuy + "]";
-	}
+	
+
+	
 }

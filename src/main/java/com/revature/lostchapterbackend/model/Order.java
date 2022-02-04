@@ -26,17 +26,13 @@ public class Order {
 	
 	@OneToOne
 	@JoinColumn(name="cart_id")
-	private int cartId;
+	private Cart cart;
 
 	public Order(int orderId, int ccInfoId, int cartId) {
 
 		this.orderId = orderId;
 		this.ccInfoId = ccInfoId;
-		this.cartId = cartId;
-	}
-
-	public Order() {
-		// TODO Auto-generated constructor stub
+		this.cart = new Cart();
 	}
 
 	public int getOrderId() {
@@ -55,22 +51,17 @@ public class Order {
 		this.ccInfoId = ccInfoId;
 	}
 
-	public int getCartId() {
-		return cartId;
+	public Cart getCart() {
+		return cart;
 	}
 
-	public void setCartId(int cartId) {
-		this.cartId = cartId;
-	}
-
-	@Override
-	public String toString() {
-		return "Order [orderId=" + orderId + ", ccInfoId=" + ccInfoId + ", cartId=" + cartId + "]";
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cartId, ccInfoId, orderId);
+		return Objects.hash(cart, ccInfoId, orderId);
 	}
 
 	@Override
@@ -82,8 +73,14 @@ public class Order {
 		if (getClass() != obj.getClass())
 			return false;
 		Order other = (Order) obj;
-		return cartId == other.cartId && ccInfoId == other.ccInfoId && orderId == other.orderId;
+		return Objects.equals(cart, other.cart) && ccInfoId == other.ccInfoId && orderId == other.orderId;
 	}
+
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", ccInfoId=" + ccInfoId + ", cart=" + cart + "]";
+	}
+
 	
 	
 
