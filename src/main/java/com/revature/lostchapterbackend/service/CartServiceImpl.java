@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.lostchapterbackend.dao.BookToBuyDAO;
@@ -12,7 +13,7 @@ import com.revature.lostchapterbackend.dao.CartDAO;
 import com.revature.lostchapterbackend.model.Book;
 import com.revature.lostchapterbackend.model.BookToBuy;
 import com.revature.lostchapterbackend.model.Cart;
-
+@Service
 public class CartServiceImpl implements CartService{
 
 	public CartDAO cartDao;
