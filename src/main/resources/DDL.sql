@@ -100,7 +100,7 @@ create table if not exists credit_card_info (
 	expiration_year integer, 
 	billing_zip integer, 
 	credit_card_type varchar, 
-	ship_info_id integer references shipping_information 
+	shipping_info_id integer references shipping_information 
 );
 
 
