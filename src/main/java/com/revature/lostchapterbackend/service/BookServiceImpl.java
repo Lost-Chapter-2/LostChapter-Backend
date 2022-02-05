@@ -12,7 +12,7 @@ import com.revature.lostchapterbackend.model.Book;
 
 public class BookServiceImpl implements BookService {
 
-	private Logger logger = LoggerFactory.getLogger(BookService.class);
+	//private Logger logger = LoggerFactory.getLogger(BookService.class);
 	private BookDAO bookDao;
 	
 
