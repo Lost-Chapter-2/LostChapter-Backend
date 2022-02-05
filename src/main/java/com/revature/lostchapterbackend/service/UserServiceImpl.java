@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	public int register(User newUser) throws UsernameAlreadyExists {
 		try 
 		{
-			newUser = userDao
+			newUser = userDao.save(newUser);
 		}catch(Exception e)
 		{
 			
@@ -93,4 +93,4 @@ public class UserServiceImpl implements UserService {
 	
 	}
 
-}
+

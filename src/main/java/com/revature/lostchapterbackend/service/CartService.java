@@ -24,12 +24,16 @@ import com.revature.lostchapterbackend.model.Cart;
  * Last delete the cart that was used when user was not logged in
  * Same goes for registering
  * But instead of deleting the cart if they decide to register we set the current carts' user to the newly created user 
+ * We should set a timer and if the timer runs out when the user is not logged in then the cart gets deleted
  * */
 @Service
 public interface CartService {
 	
 /* Returns cart by id using spring boot repo*/
-public Cart getCartById(int id);
+public Cart getCartById(int Id);
+
+/*deletes cart*/
+public void deleteCart(Cart cartToDelete);
 
 /*Using the login token we find the user's cart
  *Then we add the book to the list of books in cart
@@ -47,7 +51,7 @@ public boolean checkBookInTheCart(Book book, int userId);
  *Then we delete the book from the list 
  *Spring cascades to delete the booktobuy entry
  */
-public Cart deleteBookInCart(Book book, int userId) throws BookNotFoundException;
+public Cart deleteBookInCart(Book book, int userId) ;
 
 /*Using the login token we find the user's cart
  *Then we delete the book from the list 
@@ -57,7 +61,6 @@ public Cart deleteAllBooksInCart(int userId);
 
 /*If no user is logged in methods 
  * */
-
 public void addBooksToCartNoUser(Book newbook, Cart currentCart);
 
 /*we check the carts list for the book
@@ -68,11 +71,32 @@ public boolean checkBookInTheCartNoUser(Book book, Cart currentCart);
 /*we delete the book from the list 
  *Spring cascades to delete the booktobuy entry
  */
-public Cart deleteBookInCartNoUser(Book book, Cart currentCart) throws BookNotFoundException;
+public Cart deleteBookInCartNoUser(Book book, Cart currentCart) ;
 
 /* we delete the book from the list 
  *Spring cascades to delete the booktobuy entry
  */
 public Cart deleteAllBooksInCartNoUser(Cart currentCart);
+/*
+ * increments book quantity 
+ * */
+public void incrementQuantity(Book book, int userId);
+
+/*
+ *  increments book quantity 
+ * */
+public void incrementQuantityNoUser(Book book, Cart currentCart);
+
+/*
+ * decreases quantity
+ * */
+public void decreaseQuantity(Book book, int userId);
+
+/*
+ * decreases quantity
+ * */
+public void decreaseQuantityNoUser(Book book, Cart currentCart);
+
+
 
 }

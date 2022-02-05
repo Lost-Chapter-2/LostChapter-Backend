@@ -27,12 +27,12 @@ public class Cart {
 
 	@OneToMany
 	@JoinColumn(name="book_to_buy_id")
-	private List<Book> books;
+	private List<BookToBuy> books;
 
 	public Cart() {
 		cartId = 0;
 		user = new User();
-		books = new ArrayList<Book>();
+		books = new ArrayList<BookToBuy>();
 	}
 
 	public int getCartId() {
@@ -51,11 +51,12 @@ public class Cart {
 		this.user = user;
 	}
 
-	public List<Book> getBooks() {
+
+	public List<BookToBuy> getBooks() {
 		return books;
 	}
 
-	public void setBooks(List<Book> books) {
+	public void setBooks(List<BookToBuy> books) {
 		this.books = books;
 	}
 
