@@ -34,7 +34,7 @@ import com.revature.lostchapterbackend.model.TransactionKeeper;
 import com.revature.lostchapterbackend.model.Users;
 import com.revature.lostchapterbackend.service.BookService;
 import com.revature.lostchapterbackend.service.CartsService;
-import com.revature.lostchapterbackend.service.CheckoutService;
+import com.revature.lostchapterbackend.service.TransactionKeeperService;
 import com.revature.lostchapterbackend.utility.OrderConfirmationRandomizer;
 
 public class CheckoutServiceTest {
@@ -43,7 +43,7 @@ public class CheckoutServiceTest {
 	private CartsService cs;
 	@InjectMocks
 	@Resource
-	private CheckoutService cos;
+	private TransactionKeeperService cos;
 	@InjectMocks
 	private BookService bs;
 
@@ -64,7 +64,7 @@ public class CheckoutServiceTest {
 	public void setup() {
 		this.bs = new BookService(bd);
 		this.cs = new CartsService(bs, cd, btbd);
-		this.cos = new CheckoutService();
+		this.cos = new TransactionKeeperService();
 
 		MockitoAnnotations.openMocks(this);
 	}
