@@ -1,4 +1,6 @@
 package com.revature.lostchapterbackend.model;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,12 +27,12 @@ public class Cart {
 
 	@OneToMany
 	@JoinColumn(name="book_to_buy_id")
-	private Book book;
+	private List<BookToBuy> books;
 
 	public Cart() {
 		cartId = 0;
 		user = new User();
-		book = new Book();
+		books = new ArrayList<BookToBuy>();
 	}
 
 	public int getCartId() {
@@ -49,17 +51,18 @@ public class Cart {
 		this.user = user;
 	}
 
-	public Book getBooksToBuyID() {
-		return book;
+
+	public List<BookToBuy> getBooks() {
+		return books;
 	}
 
-	public void setBooksToBuy(Book book) {
-		this.book = book;
+	public void setBooks(List<BookToBuy> books) {
+		this.books = books;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(book, cartId, user);
+		return Objects.hash(books, cartId, user);
 	}
 
 	@Override
@@ -71,12 +74,13 @@ public class Cart {
 		if (getClass() != obj.getClass())
 			return false;
 		Cart other = (Cart) obj;
-		return book == other.book && cartId == other.cartId && Objects.equals(user, other.user);
+		return Objects.equals(books, other.books) && cartId == other.cartId && Objects.equals(user, other.user);
 	}
 
 	@Override
 	public String toString() {
-		return "Cart [cartId=" + cartId + ", user=" + user + ", Book=" + book + "]";
+		return "Cart [cartId=" + cartId + ", user=" + user + ", books=" + books + "]";
 	}
+
 	
 }

@@ -1,7 +1,6 @@
 package com.revature.lostchapterbackend.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -13,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
-public class TransactionKeeper {
+@Table(name="transaction_keeper")
+public class Transaction {
 
 	@Id
 	@Column(name="transaction_id")
@@ -22,18 +21,16 @@ public class TransactionKeeper {
 	private int transactionId;
 	private int orderNumber;
 	private double totalPrice;
-	@ElementCollection
 	private int previousOrder;
 	private LocalDateTime transactionDate;
 	
-	public TransactionKeeper(int transactionId, int orderNumber, double totalPrice, int previousOrder,
-			LocalDateTime transactionDate) {
+	public Transaction() {
 		super();
-		this.transactionId = transactionId;
-		this.orderNumber = orderNumber;
-		this.totalPrice = totalPrice;
-		this.previousOrder = previousOrder;
-		this.transactionDate = transactionDate;
+		this.transactionId = 0;
+		this.orderNumber = 000;
+		this.totalPrice = 0.0;
+		this.previousOrder = 000;
+		this.transactionDate = null;
 	}
 
 	public int getTransactionId() {
@@ -95,7 +92,7 @@ public class TransactionKeeper {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TransactionKeeper other = (TransactionKeeper) obj;
+		Transaction other = (Transaction) obj;
 		return orderNumber == other.orderNumber && previousOrder == other.previousOrder
 				&& Double.doubleToLongBits(totalPrice) == Double.doubleToLongBits(other.totalPrice)
 				&& Objects.equals(transactionDate, other.transactionDate) && transactionId == other.transactionId;

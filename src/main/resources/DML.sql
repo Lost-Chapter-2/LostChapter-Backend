@@ -26,13 +26,13 @@ values
 ​
 
 insert into book_price_data 
-(sale_is_active, sale_discount_rate, book_price, quantity_on_hand, book_id)
+(sale_is_active, sale_discount_rate, book_price, quantity_on_hand, featured, book_id)
 values 
-( true, .05, 30.00, 4, 1),			--1
-( false, null, 28.97, 3, 2),		--2
-( true, .1, 43.99, 10, 3),			--3
-( false, null, 15.01, 7, 4),		--4
-( true, .15, 74.88, 2, 5);			--5
+( true, .05, 30.00, 4, false, 1),			--1
+( false, null, 28.97, 3, true, 2),		--2
+( true, .1, 43.99, 10, true, 3),			--3
+( false, null, 15.01, 7, false, 4),		--4
+( true, .15, 74.88, 2, true, 5);			--5
 
 
 

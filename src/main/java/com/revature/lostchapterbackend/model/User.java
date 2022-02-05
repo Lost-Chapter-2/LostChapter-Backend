@@ -19,15 +19,20 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 	
-	@Column(unique=true)
+	@Column(name="username")
 	private String username;
+	@Column(name="passwrd")
 	private String password;
+	@Column(name="first_name")
 	private String firstName;
+	@Column(name="last_name")
 	private String lastName;
-	
-	@Column(unique=true)
+	@Column(name="email")
 	private String email;
+	@Column(name="birthday")
 	private LocalDate birthday;
+
+	@Column(name="user_role")
 	private String role;
 	
 	public User() {
