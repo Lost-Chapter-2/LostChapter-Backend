@@ -4,18 +4,18 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.transaction.Transactional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.revature.lostchapterbackend.dao.UserDao;
+import com.revature.lostchapterbackend.exceptions.InvalidLoginException;
+import com.revature.lostchapterbackend.exceptions.UserNotFoundException;
 import com.revature.lostchapterbackend.exceptions.UsernameAlreadyExists;
 import com.revature.lostchapterbackend.model.User;
 import com.revature.lostchapterbackend.utility.HashUtil;
 
 public class UserServiceImpl implements UserService {
 
-	private Logger logger = LoggerFactory.getLogger(UserService.class);
+
 	private UserDao userDao;
 	
 
@@ -27,9 +27,19 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	@Transactional
-	public User login(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public User login(String username, String password) throws UserNotFoundException, InvalidLoginException{
+		User userFromDatabase = userDao.findByUsername(username);
+		if (userFromDatabase != null && userFromDatabase.getPassword().equals(password)) 
+		{
+			return userFromDatabase;
+		}else if (userFromDatabase == null )
+		{
+			throw new UserNotFoundException();	
+		}else
+		{
+			throw new InvalidLoginException();
+		}
+		
 	}
 
 	@Override
@@ -40,7 +50,7 @@ public class UserServiceImpl implements UserService {
 			newUser = userDao.save(newUser);
 		}catch(Exception e)
 		{
-			
+			throw new UsernameAlreadyExists();
 		}	
 		return 0;
 	}
@@ -48,36 +58,35 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public User getUserById(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = userDao.getById(userId);
+		return user;
 	}
 
 	@Override
 	@Transactional
 	public User getUserByEmail(String email) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = userDao.findByEmail(email);
+		return user;
 	}
 
 	@Override
 	@Transactional
 	public User getUserByUsername(String username) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = userDao.findByUsername(username);
+		return user;
 	}
 
 	@Override
 	@Transactional
 	public User update(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		User updatedUser = userDao.save(user);
+		return updatedUser;
 	}
 
 	@Override
 	@Transactional
 	public void deleteUser(User user) {
-		// TODO Auto-generated method stub
-
+		userDao.delete(user);
 	}
 
 
@@ -91,6 +100,6 @@ public class UserServiceImpl implements UserService {
 
 
 	
-	}
+}
 
 

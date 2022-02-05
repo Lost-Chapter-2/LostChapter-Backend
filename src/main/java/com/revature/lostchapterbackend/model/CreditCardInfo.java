@@ -33,15 +33,15 @@ public class CreditCardInfo {
 	
 	
 	public CreditCardInfo() {
-		this.ccInfoId = ccInfoId;
-		this.nameOnCard = nameOnCard;
-		this.cardNumber = cardNumber;
-		this.cvv = cvv;
-		this.expirationMonth = expirationMonth;
-		this.expirationYear = expirationYear;
-		this.billingZip = billingZip;
-		this.creditCardType = creditCardType;
-		this.shippingInfo = shippingInfo;
+		this.ccInfoId = 0;
+		this.nameOnCard = "Jane Doe";
+		this.cardNumber = 0000000000000000;
+		this.cvv = 123;
+		this.expirationMonth = 01;
+		this.expirationYear = 25;
+		this.billingZip = 12345;
+		this.creditCardType = "visa";
+		this.shippingInfo = new ShippingInformation();
 	}
 
 

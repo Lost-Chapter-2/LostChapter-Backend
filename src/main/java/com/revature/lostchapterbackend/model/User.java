@@ -30,6 +30,7 @@ public class User {
 	private String email;
 	@Column(name="birthday")
 	private LocalDate birthday;
+
 	@Column(name="user_role")
 	private String role;
 	
