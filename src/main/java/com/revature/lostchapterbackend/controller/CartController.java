@@ -27,7 +27,7 @@ import com.revature.lostchapterbackend.service.CartService;
 @CrossOrigin(origins="http://localhost:4200/")
 public class CartController {
 
-	
+	//static for testing
 	private static CartService cartServ;
 	
 	public CartController() {
@@ -107,7 +107,7 @@ public class CartController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 	
-	@PostMapping(path = "/add/decrease/{bookToBuyId}/{userId}") 
+	@PostMapping(path = "/decrease/quantity/{bookToBuyId}/{userId}") 
 	public ResponseEntity<Object> decreaseQuantity(@RequestBody Book bookToAdd, @PathVariable int userId){
 		if (bookToAdd !=null&&userId!=0) {
 			
@@ -119,7 +119,7 @@ public class CartController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 	}
 	
-	@PostMapping(path = "/add/decrease/{bookToBuyId}/{cartId}") 
+	@PostMapping(path = "/decrease/quantity/{bookToBuyId}/{cartId}") 
 	public ResponseEntity<Object> decreaseQuantityNoUser(@RequestBody Book bookToAdd, @PathVariable int cartId){
 		if (bookToAdd !=null) {
 			

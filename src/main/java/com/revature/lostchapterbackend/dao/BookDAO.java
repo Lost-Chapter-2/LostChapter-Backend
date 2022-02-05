@@ -8,7 +8,7 @@ import com.revature.lostchapterbackend.model.Book;
 @Repository
 public interface BookDAO extends JpaRepository<Book, Integer> {
 	public List<Book> findBygenre(int Id);
-	public List<Book> findBysaleIsActiveTrue();
+	//public List<Book> findBysaleIsActiveTrue();
 	public List<Book> findByISBN(String ISBN);
 	
 }

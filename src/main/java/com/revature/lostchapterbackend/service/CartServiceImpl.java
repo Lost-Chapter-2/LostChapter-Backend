@@ -27,8 +27,7 @@ public class CartServiceImpl implements CartService{
 	@Transactional
 	public void deleteCart(Cart cartToDelete) {
 		cartDao.delete(cartToDelete);
-		
-	}
+		}
 
 	@Override
 	@Transactional
@@ -56,7 +55,6 @@ public class CartServiceImpl implements CartService{
 	public boolean checkBookInTheCart(Book book, int userId) {
 		Cart currentCart= cartDao.findByuser(userId);
 		List<BookToBuy> booksInCart= currentCart.getBooks();
-		BookToBuy rmbookToBuy= new BookToBuy(); 
 		Boolean bookExists=false;
 		for(int i=0;i<booksInCart.size();i++) {
 			if(booksInCart.get(i).getBook().getBookId()==book.getBookId()) {

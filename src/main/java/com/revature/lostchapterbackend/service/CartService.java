@@ -26,6 +26,13 @@ import com.revature.lostchapterbackend.model.Cart;
  * But instead of deleting the cart if they decide to register we set the current carts' user to the newly created user 
  * We should set a timer and if the timer runs out when the user is not logged in then the cart gets deleted
  * */
+
+
+/* To do :
+ *  Verify there is inventory of product when adding to cart.
+ *  When checking out verifying once again there is enough inventory as some may have checkedout before
+ * */
+
 @Service
 public interface CartService {
 	
