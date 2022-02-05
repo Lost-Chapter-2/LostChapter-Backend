@@ -1,7 +1,6 @@
 package com.revature.lostchapterbackend.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -26,14 +25,13 @@ public class TransactionKeeper {
 	private int previousOrder;
 	private LocalDateTime transactionDate;
 	
-	public TransactionKeeper(int transactionId, int orderNumber, double totalPrice, int previousOrder,
-			LocalDateTime transactionDate) {
+	public TransactionKeeper() {
 		super();
-		this.transactionId = transactionId;
-		this.orderNumber = orderNumber;
-		this.totalPrice = totalPrice;
-		this.previousOrder = previousOrder;
-		this.transactionDate = transactionDate;
+		this.transactionId = 0;
+		this.orderNumber = 000;
+		this.totalPrice = 0.0;
+		this.previousOrder = 000;
+		this.transactionDate = null;
 	}
 
 	public int getTransactionId() {

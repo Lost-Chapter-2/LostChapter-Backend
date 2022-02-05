@@ -31,8 +31,8 @@ public class BookToBuy {
 	private int quantityToBuy;
 
 	public BookToBuy() {
-		this.book=null;
 		this.bookId=0;
+		this.book=null;
 		this.quantityToBuy=1;
 	}
 	

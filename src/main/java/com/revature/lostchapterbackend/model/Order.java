@@ -30,7 +30,7 @@ public class Order {
 
 	public Order() {
 
-		this.orderId = orderId;
+		this.orderId = 0;
 		this.creditCard = new CreditCardInfo();
 		this.cart = new Cart();
 	}
