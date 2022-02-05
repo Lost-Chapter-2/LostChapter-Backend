@@ -8,6 +8,6 @@ import com.revature.lostchapterbackend.model.Order;
 public interface OrderDAO extends JpaRepository<Order, Integer>{
 
 	public Order findBycart(int cartId);
-	public Order findBycartuser(int userId);
+	public Order findByCartUser(int userId);
 
 }
