@@ -11,7 +11,7 @@ import com.revature.lostchapterbackend.model.User;
 @Repository
 public interface TransactionDAO extends JpaRepository<Transaction, Integer>{
 
-	public List<Order> getOrdersCart(User user);
-	public Transaction getTransactionByOrderCartUser(User user);
-	public Transaction getTransactionByOrder(Order order);
+	public List<Order> findByOrderCart(int cartId);
+	public Transaction findByOrderCartUser(User user);
+	public Transaction findByTransactionByOrder(Order order);
 }
