@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.lostchapterbackend.dao.BookToBuyDAO;
 import com.revature.lostchapterbackend.dao.CartDAO;
@@ -23,6 +24,14 @@ public class CartServiceImpl implements CartService{
 	}
 	
 	@Override
+	@Transactional
+	public void deleteCart(Cart cartToDelete) {
+		cartDao.delete(cartToDelete);
+		
+	}
+
+	@Override
+	@Transactional
 	public Cart getCartById(int id) {
 		Optional<Cart> cart = cartDao.findById(id);
 		if (cart.isPresent())
@@ -31,39 +40,55 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
+	@Transactional
 	public void addBooksToCart(Book newbook, int userId) {
 		Cart currentCart= cartDao.findByuser(userId);
-		List<Book> booksInCart= currentCart.getBooks();
-		booksInCart.add(newbook);
+		BookToBuy newBookToBuy = new BookToBuy();
+		newBookToBuy.setBook(newbook);
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		booksInCart.add(newBookToBuy);
 		currentCart.setBooks(booksInCart);
 		cartDao.save(currentCart);
 	}
 
 	@Override
+	@Transactional
 	public boolean checkBookInTheCart(Book book, int userId) {
 		Cart currentCart= cartDao.findByuser(userId);
-		List<Book> booksInCart= currentCart.getBooks();
-		for(Book b:booksInCart) {
-			if(book.equals(b))
-				return true;
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		BookToBuy rmbookToBuy= new BookToBuy(); 
+		Boolean bookExists=false;
+		for(int i=0;i<booksInCart.size();i++) {
+			if(booksInCart.get(i).getBook().getBookId()==book.getBookId()) {
+				 bookExists=true;
+				}
 		}
-		return false;
+		return bookExists;
 	}
 
 	@Override
-	public Cart deleteBookInCart(Book book, int userId) throws BookNotFoundException {
+	@Transactional
+	public Cart deleteBookInCart(Book book, int userId){
 		Cart currentCart= cartDao.findByuser(userId);
-		List<Book> booksInCart= currentCart.getBooks();
-		booksInCart.remove(book);
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		BookToBuy rmbookToBuy= new BookToBuy(); 
+		for(int i=0;i<booksInCart.size();i++) {
+			if(booksInCart.get(i).getBook().getBookId()==book.getBookId()) {
+				rmbookToBuy=booksInCart.get(i);
+			}
+		}
+		
+		booksInCart.remove(rmbookToBuy);
 		currentCart.setBooks(booksInCart);
 		cartDao.save(currentCart);
 		return currentCart;
 	}
 
 	@Override
+	@Transactional
 	public Cart deleteAllBooksInCart(int userId) {
 		Cart currentCart= cartDao.findByuser(userId);
-		List<Book> booksInCart= currentCart.getBooks();
+		List<BookToBuy> booksInCart= currentCart.getBooks();
 		booksInCart.clear();
 		currentCart.setBooks(booksInCart);
 		cartDao.save(currentCart);
@@ -71,41 +96,130 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
+	@Transactional
 	public void addBooksToCartNoUser(Book newbook, Cart currentCart) {
-		List<Book> booksInCart= currentCart.getBooks();
-		booksInCart.add(newbook);
+		BookToBuy newBookToBuy = new BookToBuy();
+		newBookToBuy.setBook(newbook);
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		booksInCart.add(newBookToBuy);
+		currentCart.setBooks(booksInCart);
+		cartDao.save(currentCart);
+	}
+
+	@Override
+	@Transactional
+	public boolean checkBookInTheCartNoUser(Book book, Cart currentCart) {
+	
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		for(BookToBuy b:booksInCart) {
+			if(book.equals(b))
+				return true;
+		}
+		return false;
+	}
+
+	@Override
+	@Transactional
+	public Cart deleteBookInCartNoUser(Book book, Cart currentCart)  {
+		
+		
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		BookToBuy rmbookToBuy= new BookToBuy(); 
+		for(int i=0;i<booksInCart.size();i++) {
+			if(booksInCart.get(i).getBook().getBookId()==book.getBookId()) {
+				rmbookToBuy=booksInCart.get(i);
+			}
+		}
+		
+		booksInCart.remove(rmbookToBuy);
+		currentCart.setBooks(booksInCart);
+		cartDao.save(currentCart);
+		return currentCart;
+	}
+
+	@Override
+	@Transactional
+	public Cart deleteAllBooksInCartNoUser(Cart currentCart) {
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		booksInCart.clear();
+		currentCart.setBooks(booksInCart);
+		cartDao.save(currentCart);
+		return currentCart;
+	}
+
+	@Override
+	@Transactional
+	public void incrementQuantity(Book book, int userId) {
+		Cart currentCart= cartDao.findByuser(userId);
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		for(int i=0;i<booksInCart.size();i++) {
+			if(booksInCart.get(i).getBook().getBookId()==book.getBookId()) {
+				booksInCart.get(i).setQuantityToBuy(booksInCart.get(i).getQuantityToBuy()+1);
+			}
+		}
+		currentCart.setBooks(booksInCart);
+		cartDao.save(currentCart);
+	}
+
+	@Override
+	@Transactional
+	public void incrementQuantityNoUser(Book book, Cart currentCart) {
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		for(int i=0;i<booksInCart.size();i++) {
+			if(booksInCart.get(i).getBook().getBookId()==book.getBookId()) {
+				booksInCart.get(i).setQuantityToBuy(booksInCart.get(i).getQuantityToBuy()+1);
+			}
+		}
 		currentCart.setBooks(booksInCart);
 		cartDao.save(currentCart);
 		
 	}
 
 	@Override
-	public boolean checkBookInTheCartNoUser(Book book, Cart currentCart) {
-	
-		List<Book> booksInCart= currentCart.getBooks();
-		for(Book b:booksInCart) {
-			if(book.equals(b))
-				return true;
+	@Transactional
+	public void decreaseQuantity(Book book, int userId) {
+		Cart currentCart= cartDao.findByuser(userId);
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		for(int i=0;i<booksInCart.size();i++) {
+			if(booksInCart.get(i).getBook().getBookId()==book.getBookId()) {
+				if(booksInCart.get(i).getQuantityToBuy()>1)
+				{
+				booksInCart.get(i).setQuantityToBuy(booksInCart.get(i).getQuantityToBuy()-1);
+				currentCart.setBooks(booksInCart);
+				cartDao.save(currentCart);
+				}
+				else
+				{
+					booksInCart.remove(booksInCart.get(i));
+					currentCart.setBooks(booksInCart);
+					cartDao.save(currentCart);
+				}
+			}
 		}
-		return false;
+		
 	}
 
 	@Override
-	public Cart deleteBookInCartNoUser(Book book, Cart currentCart) throws BookNotFoundException {
-		List<Book> booksInCart= currentCart.getBooks();
-		booksInCart.remove(book);
-		currentCart.setBooks(booksInCart);
-		cartDao.save(currentCart);
-		return currentCart;
-	}
-
-	@Override
-	public Cart deleteAllBooksInCartNoUser(Cart currentCart) {
-		List<Book> booksInCart= currentCart.getBooks();
-		booksInCart.clear();
-		currentCart.setBooks(booksInCart);
-		cartDao.save(currentCart);
-		return currentCart;
+	@Transactional
+	public void decreaseQuantityNoUser(Book book, Cart currentCart) {
+		List<BookToBuy> booksInCart= currentCart.getBooks();
+		for(int i=0;i<booksInCart.size();i++) {
+			if(booksInCart.get(i).getBook().getBookId()==book.getBookId()) {
+				if(booksInCart.get(i).getQuantityToBuy()>1)
+				{
+				booksInCart.get(i).setQuantityToBuy(booksInCart.get(i).getQuantityToBuy()-1);
+				currentCart.setBooks(booksInCart);
+				cartDao.save(currentCart);
+				}
+				else
+				{
+					booksInCart.remove(booksInCart.get(i));
+					currentCart.setBooks(booksInCart);
+					cartDao.save(currentCart);
+				}
+			}
+		}
+		
 	}
 
 

@@ -30,6 +30,12 @@ public class BookToBuy {
 	@Column(name="quantity_to_buy")
 	private int quantityToBuy;
 
+	public BookToBuy() {
+		this.book=null;
+		this.bookId=0;
+		this.quantityToBuy=1;
+	}
+	
 	public int getBookId() {
 		return bookId;
 	}
