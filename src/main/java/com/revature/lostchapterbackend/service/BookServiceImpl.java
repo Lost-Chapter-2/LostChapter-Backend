@@ -4,16 +4,19 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.lostchapterbackend.dao.BookDAO;
 import com.revature.lostchapterbackend.model.Book;
 
 
-
+@Service
 public class BookServiceImpl implements BookService {
 
-	//private Logger logger = LoggerFactory.getLogger(BookService.class);
+	private Logger logger = LoggerFactory.getLogger(BookService.class);
 	private BookDAO bookDao;
 	
 
@@ -25,8 +28,8 @@ public class BookServiceImpl implements BookService {
 	
 
 	@Override
-	@Transactional
 	public List<Book> getAllBooks() {
+		logger.debug("BookService.getAllBooks() invoked.");
 		List<Book> books = bookDao.findAll();
 		return books;
 	}
@@ -34,8 +37,8 @@ public class BookServiceImpl implements BookService {
 
 
 	@Override
-	@Transactional
 	public Book getBookById(int bookId) {
+		logger.debug("BookService.getBookById() invoked.");
 		Optional<Book> book = bookDao.findById(bookId);
 		if (book.isPresent())
 			return book.get();
@@ -47,6 +50,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	@Transactional
 	public int addBook(Book newBook) {
+		logger.debug("BookService.addBook() invoked.");
 		Book book = bookDao.save(newBook);
 		if(book != null)
 		return book.getBookId();
@@ -58,6 +62,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	@Transactional
 	public Book updateBook(Book bookToUpdate) {
+		logger.debug("BookService.updateBook() invoked.");
 		Optional<Book> BookFromDatabase = bookDao.findById(bookToUpdate.getBookId());
 		if (BookFromDatabase.isPresent()) {
 			bookDao.save(bookToUpdate);
@@ -69,23 +74,23 @@ public class BookServiceImpl implements BookService {
 
 		
 		@Override
-		@Transactional
 		public List<Book> getBookByGenre(int Id) {
+			logger.debug("BookService.getBookByGenre() invoked.");
 			return bookDao.findBygenre(Id);
 		}
 		
 
 		@Override
-		@Transactional
 		public List<Book> getByISBN(String ISBN){
+			logger.debug("BookService.getByISBN() invoked.");
 			return bookDao.findByISBN(ISBN);
 		}
 
 
 
 		@Override
-		@Transactional
 		public List<Book> getByKeyWord(String key) {
+			logger.debug("BookService.getByKeyWord() invoked.");
 			List<Book> books = bookDao.findAll();
 			for(Book book:books) {
 				if(!book.getBookName().toLowerCase().contains(key.toLowerCase())) {

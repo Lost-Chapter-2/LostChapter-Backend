@@ -4,8 +4,8 @@ package com.revature.lostchapterbackend.controller;
 import java.util.List;
 
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +27,7 @@ import com.revature.lostchapterbackend.service.BookService;
 @CrossOrigin(origins="http://localhost:4200/")
 public class BookController {
 
-	//private Logger logger = LoggerFactory.getLogger(BookController.class);
+	private Logger logger = LoggerFactory.getLogger(BookController.class);
 
 	//static for testing
 	private static BookService bookServ;
@@ -42,7 +42,7 @@ public class BookController {
 	
 	@GetMapping
 	public ResponseEntity<List<Book>>  getAllBooks() {
-		//logger.info("BookController.getAllBooks() invoked.");
+		logger.debug("BookController.getAllBooks() invoked.");
 		List<Book> books = bookServ.getAllBooks();
 		return ResponseEntity.ok(books);
 	}
@@ -59,7 +59,7 @@ public class BookController {
 
 	@GetMapping(path = "/{bookId}")
 	public ResponseEntity<Book> getBookById(@PathVariable int bookId) {
-	//	logger.info("BookController.getBookById() invoked.");
+		logger.debug("BookController.getBookById() invoked.");
 
 		Book book = bookServ.getBookById(bookId);
 		
@@ -73,7 +73,7 @@ public class BookController {
 
 	@GetMapping(path = "/genre/{genreId}")
 	public ResponseEntity<Object> getBookByGenreId(@PathVariable int genreId) {
-		//logger.info("BookController.getBookByGenreId() invoked.");
+		logger.debug("BookController.getBookByGenreId() invoked.");
 
 		try {
 			List<Book> bookList = bookServ.getBookByGenre(genreId);
@@ -90,6 +90,7 @@ public class BookController {
 
 	@GetMapping(path = "/search/{key}")
 	public ResponseEntity<Object> getBookByKeyword(@PathVariable String key) {
+		logger.debug("BookController.getBookByKeyword() invoked.");
 		try {
 			List<Book> bookList = bookServ.getByKeyWord(key);
 			if(bookList!=null)
@@ -114,7 +115,7 @@ public class BookController {
 	@PostMapping
 	public ResponseEntity<Void> addNewBook(@RequestBody Book newBook) {
 
-		//logger.info("BookController.addNewBook() invoked."+ dto);
+		logger.debug("BookController.addNewBook() invoked.");
 
 		if (newBook !=null) {
 		

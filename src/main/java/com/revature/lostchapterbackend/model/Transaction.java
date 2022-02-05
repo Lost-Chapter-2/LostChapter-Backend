@@ -21,7 +21,6 @@ public class Transaction {
 	private int transactionId;
 	private int orderNumber;
 	private double totalPrice;
-	@ElementCollection
 	private int previousOrder;
 	private LocalDateTime transactionDate;
 	

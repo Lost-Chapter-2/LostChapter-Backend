@@ -3,11 +3,13 @@ package com.revature.lostchapterbackend.model;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -18,10 +20,12 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reviewId;
 
-	@Column(nullable = false)
+	@ManyToOne
+	@JoinColumn(name="book_id")
 	private Book book;
 	
-	@Column(nullable = false)
+	@OneToOne
+	@JoinColumn(name="user_id")
 	private User user;
 	
 	private String reviewTitle;
@@ -29,37 +33,34 @@ public class Review {
 	//rating names to be set on the front end based on book genre
 	//For Fiction, ratingOne is Plot
 	//For Non-Fiction, ratingOne is ???
-	@Column(nullable = false)
+	
 	private int ratingOne;
 	
 	//For Fiction, ratingTwo is Pacing
 	//For Non-Fiction, ratingTwo is ???
-	@Column(nullable = false)
+	
 	private int ratingTwo;
 	
 	//For Fiction, ratingThree is Prose
 	//For Non-Fiction, ratingThree is ???
-	@Column(nullable = false)
+	
 	private int ratingThree;
 
-	private LocalDateTime sent_at;
+	private LocalDateTime sentAt;
+	
+	
 	
 	public Review() {
 		super();
-	}
-	
-	public Review(int reviewId, Book book, User user, String reviewTitle, String reviewText, int ratingOne,
-			int ratingTwo, int ratingThree, LocalDateTime sent_at) {
-		super();
-		this.reviewId = reviewId;
-		this.book = book;
-		this.user = user;
-		this.reviewTitle = reviewTitle;
-		this.reviewText = reviewText;
-		this.ratingOne = ratingOne;
-		this.ratingTwo = ratingTwo;
-		this.ratingThree = ratingThree;
-		this.sent_at = sent_at;
+		this.reviewId = 0;
+		this.book = new Book();
+		this.user = new User();
+		this.reviewTitle = "";
+		this.reviewText = "";
+		this.ratingOne = 0;
+		this.ratingTwo = 0;
+		this.ratingThree = 0;
+		this.sentAt = LocalDateTime.now();
 	}
 	
 	public double getOverallRating() {
@@ -115,15 +116,15 @@ public class Review {
 	public void setRatingThree(int ratingThree) {
 		this.ratingThree = ratingThree;
 	}
-	public LocalDateTime getSent_at() {
-		return sent_at;
+	public LocalDateTime getSentAt() {
+		return sentAt;
 	}
-	public void setSent_at(LocalDateTime sent_at) {
-		this.sent_at = sent_at;
+	public void setSentAt(LocalDateTime sentAt) {
+		this.sentAt = sentAt;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(book, ratingOne, ratingThree, ratingTwo, reviewId, reviewText, reviewTitle, sent_at, user);
+		return Objects.hash(book, ratingOne, ratingThree, ratingTwo, reviewId, reviewText, reviewTitle, sentAt, user);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -137,13 +138,13 @@ public class Review {
 		return Objects.equals(book, other.book) && ratingOne == other.ratingOne && ratingThree == other.ratingThree
 				&& ratingTwo == other.ratingTwo && reviewId == other.reviewId
 				&& Objects.equals(reviewText, other.reviewText) && Objects.equals(reviewTitle, other.reviewTitle)
-				&& Objects.equals(sent_at, other.sent_at) && Objects.equals(user, other.user);
+				&& Objects.equals(sentAt, other.sentAt) && Objects.equals(user, other.user);
 	}
 	@Override
 	public String toString() {
 		return "Review [reviewId=" + reviewId + ", book=" + book + ", user=" + user + ", reviewTitle=" + reviewTitle
 				+ ", reviewText=" + reviewText + ", ratingOne=" + ratingOne + ", ratingTwo=" + ratingTwo
-				+ ", ratingThree=" + ratingThree + ", sent_at=" + sent_at + "]";
+				+ ", ratingThree=" + ratingThree + ", sent_at=" + sentAt + "]";
 	}
 	
 		

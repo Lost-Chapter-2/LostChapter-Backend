@@ -1,5 +1,5 @@
 
-
+drop table if exists review cascade;
 drop table if exists credit_card_info cascade;
 drop table if exists shipping_information cascade;
 drop table if exists transaction_keeper cascade;
@@ -104,7 +104,17 @@ create table if not exists credit_card_info (
 );
 
 
-
+create table if not exists review (
+	review_id serial unique not null primary key,
+	book_id integer references book, 
+	user_id integer references usr, 
+	review_title varchar,
+	review_text varchar(500),
+	rating_one integer,
+	rating_two integer,
+	rating_three integer,
+	sent_at timestamp 
+);
 
 
 alter table if exists ordr
