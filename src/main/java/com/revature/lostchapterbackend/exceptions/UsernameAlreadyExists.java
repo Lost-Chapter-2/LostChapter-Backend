@@ -1,6 +1,6 @@
 package com.revature.lostchapterbackend.exceptions;
 
-public class EmailNotFoundException extends Exception{
+public class UsernameAlreadyExists extends Exception {
 
 	/**
 	 * 
