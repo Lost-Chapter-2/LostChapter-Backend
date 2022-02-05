@@ -18,7 +18,7 @@ import com.revature.lostchapterbackend.model.Cart;
 import com.revature.lostchapterbackend.model.Checkout;
 import com.revature.lostchapterbackend.model.User;
 import com.revature.lostchapterbackend.service.CartService;
-import com.revature.lostchapterbackend.service.CheckoutService;
+import com.revature.lostchapterbackend.service.TransactionKeeperService;
 import com.revature.lostchapterbackend.utility.ValidateCheckoutUtil;
 
 @RestController
@@ -32,7 +32,7 @@ public class CheckoutController {
 	private ValidateCheckoutUtil validateCheckoutUtil;
 
 	@Autowired
-	private CheckoutService cs;
+	private TransactionKeeperService cs;
 
 	@Autowired
 	private CartService css;
