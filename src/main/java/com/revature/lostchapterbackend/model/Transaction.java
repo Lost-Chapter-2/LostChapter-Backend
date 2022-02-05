@@ -4,11 +4,12 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,17 +20,17 @@ public class Transaction {
 	@Column(name="transaction_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int transactionId;
-	private int orderNumber;
+	@OneToOne
+	@JoinColumn(name="order_id")
+	private Order order;
 	private double totalPrice;
-	private int previousOrder;
 	private LocalDateTime transactionDate;
 	
 	public Transaction() {
 		super();
 		this.transactionId = 0;
-		this.orderNumber = 000;
+		this.order = new Order();
 		this.totalPrice = 0.0;
-		this.previousOrder = 000;
 		this.transactionDate = null;
 	}
 
@@ -41,12 +42,12 @@ public class Transaction {
 		this.transactionId = transactionId;
 	}
 
-	public int getOrderNumber() {
-		return orderNumber;
+	public Order getOrder() {
+		return order;
 	}
 
-	public void setOrderNumber(int orderNumber) {
-		this.orderNumber = orderNumber;
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 	public double getTotalPrice() {
@@ -55,14 +56,6 @@ public class Transaction {
 
 	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
-	}
-
-	public int getPreviousOrder() {
-		return previousOrder;
-	}
-
-	public void setPreviousOrder(int previousOrder) {
-		this.previousOrder = previousOrder;
 	}
 
 	public LocalDateTime getTransactionDate() {
@@ -75,13 +68,13 @@ public class Transaction {
 
 	@Override
 	public String toString() {
-		return "TransactionKeeper [transactionId=" + transactionId + ", orderNumber=" + orderNumber + ", totalPrice="
-				+ totalPrice + ", previousOrder=" + previousOrder + ", transactionDate=" + transactionDate + "]";
+		return "Transaction [transactionId=" + transactionId + ", order=" + order + ", totalPrice=" + totalPrice
+				+ ", transactionDate=" + transactionDate + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(orderNumber, previousOrder, totalPrice, transactionDate, transactionId);
+		return Objects.hash(order, totalPrice, transactionDate, transactionId);
 	}
 
 	@Override
@@ -93,10 +86,11 @@ public class Transaction {
 		if (getClass() != obj.getClass())
 			return false;
 		Transaction other = (Transaction) obj;
-		return orderNumber == other.orderNumber && previousOrder == other.previousOrder
+		return Objects.equals(order, other.order)
 				&& Double.doubleToLongBits(totalPrice) == Double.doubleToLongBits(other.totalPrice)
 				&& Objects.equals(transactionDate, other.transactionDate) && transactionId == other.transactionId;
 	}
+
 
 	
 }

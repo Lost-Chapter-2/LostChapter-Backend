@@ -13,5 +13,5 @@ public interface TransactionDAO extends JpaRepository<Transaction, Integer>{
 
 	public List<Order> findByOrderCart(int cartId);
 	public Transaction findByOrderCartUser(User user);
-	public Transaction findByTransactionByOrder(Order order);
+	public Transaction findByOrder(Order order);
 }
