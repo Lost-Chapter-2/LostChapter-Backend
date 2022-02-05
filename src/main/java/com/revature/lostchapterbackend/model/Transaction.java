@@ -12,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
-public class TransactionKeeper {
+@Table(name="transaction_keeper")
+public class Transaction {
 
 	@Id
 	@Column(name="transaction_id")
@@ -25,7 +25,7 @@ public class TransactionKeeper {
 	private int previousOrder;
 	private LocalDateTime transactionDate;
 	
-	public TransactionKeeper() {
+	public Transaction() {
 		super();
 		this.transactionId = 0;
 		this.orderNumber = 000;
@@ -93,7 +93,7 @@ public class TransactionKeeper {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TransactionKeeper other = (TransactionKeeper) obj;
+		Transaction other = (Transaction) obj;
 		return orderNumber == other.orderNumber && previousOrder == other.previousOrder
 				&& Double.doubleToLongBits(totalPrice) == Double.doubleToLongBits(other.totalPrice)
 				&& Objects.equals(transactionDate, other.transactionDate) && transactionId == other.transactionId;

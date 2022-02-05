@@ -57,7 +57,7 @@ create table if not exists usr (
 	last_name varchar, 
 	email varchar, 
 	birthday date, 
-	userz-role varchar
+	user_role varchar
 );
 
 create table if not exists cart (

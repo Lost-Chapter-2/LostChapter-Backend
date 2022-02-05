@@ -1,26 +1,26 @@
-package com.revature.lostchapterbackend.service;
-
-import java.security.NoSuchAlgorithmException;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.stereotype.Service;
-
-import com.revature.lostchapterbackend.dao.UserDao;
-import com.revature.lostchapterbackend.dto.SignUpDto;
-import com.revature.lostchapterbackend.exceptions.InvalidLoginException;
-import com.revature.lostchapterbackend.exceptions.InvalidParameterException;
-import com.revature.lostchapterbackend.exceptions.UserNotFoundException;
-import com.revature.lostchapterbackend.model.Cart;
-import com.revature.lostchapterbackend.model.User;
-import com.revature.lostchapterbackend.utility.HashUtil;
-
-@Service
-public class UserServiceOld {
+//package com.revature.lostchapterbackend.service;
+//
+//import java.security.NoSuchAlgorithmException;
+//import java.util.HashSet;
+//import java.util.Set;
+//
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.dao.DataAccessException;
+//import org.springframework.stereotype.Service;
+//
+//import com.revature.lostchapterbackend.dao.UserDao;
+//import com.revature.lostchapterbackend.dto.SignUpDto;
+//import com.revature.lostchapterbackend.exceptions.InvalidLoginException;
+//import com.revature.lostchapterbackend.exceptions.InvalidParameterException;
+//import com.revature.lostchapterbackend.exceptions.UserNotFoundException;
+//import com.revature.lostchapterbackend.model.Cart;
+//import com.revature.lostchapterbackend.model.User;
+//import com.revature.lostchapterbackend.utility.HashUtil;
+//
+//@Service
+//public class UserServiceOld {
 
 //	@Autowired
 //	private UserDao ud;
@@ -156,4 +156,4 @@ public class UserServiceOld {
 //		return users;
 //	}
 
-}
+//}

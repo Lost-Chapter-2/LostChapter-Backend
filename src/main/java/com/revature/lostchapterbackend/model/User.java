@@ -28,6 +28,8 @@ public class User {
 	@Column(unique=true)
 	private String email;
 	private LocalDate birthday;
+	
+	@Column(name="user_role")
 	private String role;
 	
 	public User() {

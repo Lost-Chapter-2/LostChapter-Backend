@@ -30,7 +30,7 @@ import com.revature.lostchapterbackend.model.Carts;
 import com.revature.lostchapterbackend.model.Checkout;
 import com.revature.lostchapterbackend.model.Genre;
 import com.revature.lostchapterbackend.model.ShippingInformation;
-import com.revature.lostchapterbackend.model.TransactionKeeper;
+import com.revature.lostchapterbackend.model.Transaction;
 import com.revature.lostchapterbackend.model.Users;
 import com.revature.lostchapterbackend.service.BookService;
 import com.revature.lostchapterbackend.service.CartsService;
@@ -119,8 +119,8 @@ public class CheckoutServiceTest {
 
 		cos.saveCard(payout); // save and updates card info
 
-		TransactionKeeper tk;
-		tk = new TransactionKeeper("vSQXcYx64Lda63u", totalPrice, previousOrder,
+		Transaction tk;
+		tk = new Transaction("vSQXcYx64Lda63u", totalPrice, previousOrder,
 				LocalDateTime.of(LocalDate.now(), LocalTime.of(1, 53, 53)));
 		Mockito.when(tkd.saveAndFlush(tk)).thenReturn(tk); // saves a transaction
 
@@ -130,11 +130,11 @@ public class CheckoutServiceTest {
 //		System.out.println(currentCart);
 //		System.out.println(payout);
 //		
-		TransactionKeeper actual = cos.confirmCheckout(currentCart, payout);
+		Transaction actual = cos.confirmCheckout(currentCart, payout);
 		actual.setOrderNumber("vSQXcYx64Lda63u");
 		actual.setTransactionDate(LocalDateTime.of(LocalDate.now(), LocalTime.of(1, 53, 53)));
 
-		TransactionKeeper expected = tk;
+		Transaction expected = tk;
 
 		Assertions.assertEquals(expected, actual);
 	}
@@ -168,18 +168,18 @@ public class CheckoutServiceTest {
 	@Test
 	void getTransactionById_PositiveTest() {
 
-		TransactionKeeper tk;
-		tk = new TransactionKeeper("vSQXcYx64Lda63u", 10.23, new ArrayList<String>(),
+		Transaction tk;
+		tk = new Transaction("vSQXcYx64Lda63u", 10.23, new ArrayList<String>(),
 				LocalDateTime.of(LocalDate.now(), LocalTime.of(1, 53, 53)));
 		tk.setTransactionId(1);
 		
-		Mockito.when(tkd.findById(1)).thenReturn(Optional.of(new TransactionKeeper("vSQXcYx64Lda63u", 10.23,
+		Mockito.when(tkd.findById(1)).thenReturn(Optional.of(new Transaction("vSQXcYx64Lda63u", 10.23,
 				new ArrayList<String>(), LocalDateTime.of(LocalDate.now(), LocalTime.of(1, 53, 53)))));
 
-		TransactionKeeper actual = cos.getTransactionById("1");
+		Transaction actual = cos.getTransactionById("1");
 		actual.setTransactionId(1);
 
-		TransactionKeeper expected = new TransactionKeeper("vSQXcYx64Lda63u", 10.23, new ArrayList<String>(),
+		Transaction expected = new Transaction("vSQXcYx64Lda63u", 10.23, new ArrayList<String>(),
 				LocalDateTime.of(LocalDate.now(), LocalTime.of(1, 53, 53)));
 		expected.setTransactionId(1);
 		

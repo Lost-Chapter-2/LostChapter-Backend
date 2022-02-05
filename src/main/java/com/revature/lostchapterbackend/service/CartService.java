@@ -1,19 +1,8 @@
 package com.revature.lostchapterbackend.service;
 
-import java.security.InvalidParameterException;
-import java.util.Iterator;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.revature.lostchapterbackend.dao.BookToBuyDAO;
-import com.revature.lostchapterbackend.dao.CartDAO;
-import com.revature.lostchapterbackend.exceptions.BookNotFoundException;
-import com.revature.lostchapterbackend.exceptions.OutOfStockException;
 import com.revature.lostchapterbackend.model.Book;
-import com.revature.lostchapterbackend.model.BookToBuy;
 import com.revature.lostchapterbackend.model.Cart;
 /*Front End Implementations notes
  * If the user is not logged in they will not be able to use the cart feature.
