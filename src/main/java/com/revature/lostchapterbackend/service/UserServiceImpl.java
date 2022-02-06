@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.revature.lostchapterbackend.dao.UserDAO;
 import com.revature.lostchapterbackend.exceptions.InvalidLoginException;
@@ -12,7 +13,7 @@ import com.revature.lostchapterbackend.exceptions.UserNotFoundException;
 import com.revature.lostchapterbackend.exceptions.UsernameAlreadyExists;
 import com.revature.lostchapterbackend.model.User;
 import com.revature.lostchapterbackend.utility.HashUtil;
-
+@Service
 public class UserServiceImpl implements UserService {
 
 
