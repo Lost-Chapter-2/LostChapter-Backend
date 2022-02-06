@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.revature.lostchapterbackend.dao.UserDao;
+import com.revature.lostchapterbackend.dao.UserDAO;
 import com.revature.lostchapterbackend.exceptions.InvalidLoginException;
 import com.revature.lostchapterbackend.exceptions.UserNotFoundException;
 import com.revature.lostchapterbackend.exceptions.UsernameAlreadyExists;
@@ -16,11 +16,11 @@ import com.revature.lostchapterbackend.utility.HashUtil;
 public class UserServiceImpl implements UserService {
 
 
-	private UserDao userDao;
+	private UserDAO userDao;
 	
 
 	@Autowired
-	public UserServiceImpl(UserDao userDao) {
+	public UserServiceImpl(UserDAO userDao) {
 		this.userDao = userDao;
 	}
 	
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
 			newUser = userDao.save(newUser);
 		}catch(Exception e)
 		{
-			throw new UsernameAlreadyExists();
+			throw new UsernameAlreadyExists("Username Already Exists! Try Again!");
 		}	
 		return 0;
 	}

@@ -13,8 +13,6 @@ drop table if exists genre cascade;
 
 
 
-
-
 create table if not exists genre (
      id serial unique not null primary key,
       genre varchar
@@ -74,9 +72,8 @@ create table if not exists ordr (
 
 create table if not exists transaction_keeper (
 	transaction_id serial unique not null primary key, 
-	order_number integer references ordr, 
+	order_id integer references ordr, 
 	total_price float8, 
-	previous_order integer references ordr, 
 	transaction_date timestamp
 );
 
@@ -100,7 +97,7 @@ create table if not exists credit_card_info (
 	expiration_year integer, 
 	billing_zip integer, 
 	credit_card_type varchar, 
-	ship_info_id integer references shipping_information 
+	shipping_info_id integer references shipping_information 
 );
 
 
