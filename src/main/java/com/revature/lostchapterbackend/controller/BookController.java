@@ -24,7 +24,7 @@ import com.revature.lostchapterbackend.service.BookService;
 
 @RestController
 @RequestMapping(path="/book")
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin("*")
 public class BookController {
 
 	private Logger logger = LoggerFactory.getLogger(BookController.class);
@@ -118,7 +118,7 @@ public class BookController {
 		logger.debug("BookController.addNewBook() invoked.");
 
 		if (newBook !=null) {
-		
+		System.out.println(newBook);
 				bookServ.addBook(newBook);
 				return ResponseEntity.status(HttpStatus.CREATED).build();
 			}
