@@ -3,7 +3,7 @@
 insert into usr 
 (username, passwrd, first_name, last_name, email, birthday, user_role) 
 values 
-('kstran', 'pass', 'Kalila', 'Straneo', 'kstraneo0@washington.edu', '12/26/1967', 'admin'),				--1
+('kstra', 'pass', 'Kalila', 'Straneo', 'kstra0@washington.edu', '12/26/1967', 'admin'),					--1
 ('tbot1', 'pass', 'Tony', 'Botti', 'tbotti1@mozilla.com', '7/16/1996', 'customer'),						--2
 ('gdenziloe2', 'pass', 'Guido', 'Denziloe', 'gdenziloe2@reuters.com', '5/22/1968', 'customer'),			--3
 ('cdanza3', 'pass', 'Cate', 'Danza', 'cdanza3@google.cn', '1/6/1992', 'customer'),						--4
@@ -25,14 +25,20 @@ values
 ('bpruej', 'pass', 'Basile', 'Prue', 'bpruej@bing.com', '9/25/1990', 'customer');						--20
 ​
 
+insert into genre 
+(genre)
+values 
+('unknown');
+
+
 insert into book_price_data 
 (sale_is_active, sale_discount_rate, book_price, quantity_on_hand, featured, book_id)
 values 
-( true, .05, 30.00, 4, false, 1),			--1
+( true, .05, 30.00, 4, false, 1),		--1
 ( false, null, 28.97, 3, true, 2),		--2
-( true, .1, 43.99, 10, true, 3),			--3
+( true, .1, 43.99, 10, true, 3),		--3
 ( false, null, 15.01, 7, false, 4),		--4
-( true, .15, 74.88, 2, true, 5);			--5
+( true, .15, 74.88, 2, true, 5);		--5
 
 
 
@@ -50,11 +56,11 @@ values
 insert into cart 
 (user_id, book_to_buy_id)
 values 
-( 5, 1),			--1
-( 5, 2),			--2
-( 18, 3),			--3
-( 18, 4),			--4
-( 18, 5);			--5
+( 5, 6),			--1
+( 5, 7),			--2
+( 18, 8),			--3
+( 18, 9),			--4
+( 18, 10);			--5
 
 
 
@@ -62,40 +68,40 @@ values
 insert into ordr ​
 (cc_info_id, cart_id)
 values 
-( 12, 1),			--1
-( 11, 2),			--2
-( 10, 3),			--3
-( 9, 4),			--4
-( 8, 5);			--5
+( 12, 11),			--1
+( 11, 12),			--2
+( 10, 13),			--3
+( 9, 14),			--4
+( 8, 15);			--5
 
 
 
 
 ​
-insert into transction_keeper 
-(order_number, total_price, previous_order, transaction_date, tracking_number) 
+insert into transaction_keeper 
+(order_id, total_price,  transaction_date) 
 values 
-( 2, '$22.47',  1, '5/13/2021', '#4ECD58'),			--1
-( 4, '$22.82',  3, '9/23/2021', '#E03B80'),			--2
-( 5, '$37.55',  4, '11/19/2021', '#0EA8E4');		--3
+(2, '22.47', '5/13/2021'),		--1
+(4, '22.82', '9/23/2021'),		--2
+(5, '37.55', '11/19/2021');		--3
 
 ​
 ​
 ​
 ​
 insert into shipping_information 
-(first_name, last_name, address1, address2, city, state, zip, ship_speed) 
+(first_name, last_name, street_name, city, state, zip_code, delivery_date) 
 values 
-('Giulietta', 'Leaves', '6 Fulton Place', null, 'Pasadena', 'California', '91186', 'express'), 				--1
-('Sammy', 'Dorie', '7 Scott Parkway', null, 'Los Angeles', 'California', '90015', 'express'), 				--2
-('Gerome', 'Pavlenko', '103 Garrison Street', null, 'Troy', 'Michigan', '48098', 'express'), 				--3
-('Hyacinthie', 'Orteaux', '168 New Castle Parkway', null, 'Orange', 'California', '92867', 'priority'), 	--4
-('Jareb', 'Greenhaugh', '7249 Spenser Alley', null, 'Van Nuys', 'California', '91411', 'express'); 			--5
+('Giulietta', 'Leaves', '6 Fulton Place', 'Pasadena', 'California', '91186', 'express'), 				--1
+('Sammy', 'Dorie', '7 Scott Parkway', 'Los Angeles', 'California', '90015', 'express'), 				--2
+('Gerome', 'Pavlenko', '103 Garrison Street', 'Troy', 'Michigan', '48098', 'express'), 					--3
+('Hyacinthie', 'Orteaux', '168 New Castle Parkway', 'Orange', 'California', '92867', 'priority'), 		--4
+('Jareb', 'Greenhaugh', '7249 Spenser Alley', 'Van Nuys', 'California', '91411', 'express'); 			--5
 ​
 ​
 ​
 insert into credit_card_info 
-(name_on_card, card_number, cvv, expiration_month, expiration_year, billing_zip, credit_card_type, ship_add_id) 
+(name_on_card, card_number, cvv, expiration_month, expiration_year, billing_zip, credit_card_type, shipping_info_id) 
 values 
 ('Brandy Faas', '3537697616419643', 372, 11, 22, '43521', 'jcb', 1),					--1
 ('Neda Pindell', '4508561723705067', 671, 12, 27, '07821', 'visa-electron', 2),			--2
@@ -113,8 +119,15 @@ values
 ('Feodora McQuaid', '3585420940317602', 494, 8, 27, '09909', 'jcb', 4),					--14
 ('Broderic Noell', '3539337111971990', 221, 5, 27, '98765', 'jcb', 5);					--15
 ​
-​
-​
+​	
+insert into review 
+(​book_id, user_id, review_title, review_text, rating_one, rating_two, rating_three, sent_at)
+values 
+(1, 17, 'The Hobbit Sucks!', 'What can I say, I hated it.', 1, 1, 1, null),
+(33, 6, 'The Return Rocks', 'Dude its the best book Ive ever read', 5, 5, 5, null);
+	
+	
+	
 ​
 ​
 ​
