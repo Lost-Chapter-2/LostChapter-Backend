@@ -1,4 +1,5 @@
 package com.revature.lostchapterbackend.service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,12 +100,15 @@ public class BookServiceImpl implements BookService {
 		public List<Book> getByKeyWord(String key) {
 			logger.debug("BookService.getByKeyWord() invoked.");
 			List<Book> books = bookDao.findAll();
+			List<Book> found= new ArrayList<Book>(); 
+			if(books!=null)
 			for(Book book:books) {
-				if(!book.getBookName().toLowerCase().contains(key.toLowerCase())) {
-					books.remove(book);
+				if(book.getBookName().toLowerCase().contains(key.toLowerCase())) {
+					found.add(book);
 				}
 			}
-			return books;
+			else return null;
+			return found;
 		}	
 
 			

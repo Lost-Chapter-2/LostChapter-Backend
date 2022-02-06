@@ -40,6 +40,7 @@ public class BookController {
 		this.bookServ=bookServ;
 	}
 	
+	//working
 	@GetMapping
 	public ResponseEntity<List<Book>>  getAllBooks() {
 		logger.debug("BookController.getAllBooks() invoked.");
@@ -56,7 +57,8 @@ public class BookController {
 //
 //		return featuredBooks;
 //	}
-
+	
+	//working
 	@GetMapping(path = "/{bookId}")
 	public ResponseEntity<Book> getBookById(@PathVariable int bookId) {
 		logger.debug("BookController.getBookById() invoked.");
@@ -70,7 +72,7 @@ public class BookController {
 			return ResponseEntity.notFound().build();
 
 	}
-
+	//working
 	@GetMapping(path = "/genre/{name}")
 	public ResponseEntity<Object> getBookByGenreId(@PathVariable String name) {
 		logger.debug("BookController.getBookByGenreId() invoked.");
@@ -87,7 +89,7 @@ public class BookController {
 		}
 
 	}
-
+	//works
 	@GetMapping(path = "/search/{key}")
 	public ResponseEntity<Object> getBookByKeyword(@PathVariable String key) {
 		logger.debug("BookController.getBookByKeyword() invoked.");
@@ -111,7 +113,7 @@ public class BookController {
 //
 //	}
 
-	//@Admin
+	//working
 	@PostMapping
 	public ResponseEntity<Void> addNewBook(@RequestBody Book newBook) {
 
