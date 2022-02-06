@@ -4,17 +4,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.revature.lostchapterbackend.model.Order;
+import com.revature.lostchapterbackend.model.Cart;
 import com.revature.lostchapterbackend.model.Transaction;
-import com.revature.lostchapterbackend.model.User;
 
 
 @Service
 public interface TransactionService {
-	public Order getCurrentOrder(Order currentOrderNumber);
-	public List<Order> getListOfOrders(User user);
+	public Cart getPurchacedCart(int currentOrderId);
 	public Transaction getTransactionById(int transactionId);
-	public Transaction getTransactionByUser(User user);
-	public Transaction getTransactionByOrder(Order order);
+	public List<Transaction> getTransactionByUser(int userId);
+	public Transaction getTransactionByOrderId(int orderId);
 	 
 }

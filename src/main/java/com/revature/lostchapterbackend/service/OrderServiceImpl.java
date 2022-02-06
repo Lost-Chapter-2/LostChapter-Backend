@@ -1,39 +1,72 @@
 package com.revature.lostchapterbackend.service;
 
-import com.revature.lostchapterbackend.model.Book;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.revature.lostchapterbackend.dao.OrderDAO;
+import com.revature.lostchapterbackend.exceptions.CartNotFoundException;
+import com.revature.lostchapterbackend.exceptions.OrderDoesNotExist;
+import com.revature.lostchapterbackend.exceptions.UserNotFoundException;
 import com.revature.lostchapterbackend.model.Order;
-import com.revature.lostchapterbackend.model.User;
 
 public class OrderServiceImpl implements OrderService {
 
+	private OrderDAO orderdao;
+	
+	@Autowired
+	public OrderServiceImpl(OrderDAO orderdao) {
+		this.orderdao = orderdao;
+	}
+	
 	@Override
-	public Order getOrderById(int orderId) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public Order getOrderById(int orderId) throws OrderDoesNotExist {
+		try
+		{
+			Order order = orderdao.getById(orderId);
+			return order;
+		}catch(Exception e)
+		{
+			throw new OrderDoesNotExist("Order Id Not Found, Try Again!");
+		}
 	}
 
 	@Override
-	public Order getAllOrdersByUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public List<Order> getAllOrdersByUser(int userId) throws UserNotFoundException{
+		try
+		{
+			List<Order> orders = orderdao.findByCartUser(userId);
+			return orders;
+		}catch(Exception e)
+		{
+			throw new UserNotFoundException("User Id Not Found, Try Again!");
+		}
 	}
 
 	@Override
-	public Order getOrderByCartId(int cartId) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public Order getOrderByCartId(int cartId) throws CartNotFoundException{
+		try
+		{
+			Order order = orderdao.findBycart(cartId);
+			return order;
+		}catch(Exception e)
+		{
+			throw new CartNotFoundException("Cart Id Not Found, Try Again!");
+		}
 	}
 
 	@Override
-	public int addOrder(Order order) {
-		// TODO Auto-generated method stub
-		return 0;
+	@Transactional
+	public Order addOrder(Order order) {
+		Order newOrder = orderdao.save(order);
+		return newOrder;
 	}
 
-//	@Override
-//	public Order getOrderByBook(Book book) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+
 
 }
