@@ -71,12 +71,12 @@ public class BookController {
 
 	}
 
-	@GetMapping(path = "/genre/{genreId}")
-	public ResponseEntity<Object> getBookByGenreId(@PathVariable int genreId) {
+	@GetMapping(path = "/genre/{name}")
+	public ResponseEntity<Object> getBookByGenreId(@PathVariable String name) {
 		logger.debug("BookController.getBookByGenreId() invoked.");
 
 		try {
-			List<Book> bookList = bookServ.getBookByGenre(genreId);
+			List<Book> bookList = bookServ.getBookByGenre(name);
 			if(bookList!=null)
 			return ResponseEntity.ok(bookList);
 			else

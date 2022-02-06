@@ -27,7 +27,7 @@ public interface BookService {
 	public Book updateBook(Book bookToUpdate);
 	/* search by genre
 	 */
-	public List<Book> getBookByGenre(int Id);
+	public List<Book> getBookByGenre(String genre);
 	/* search by ISBN
 	 */
 	public List<Book> getByISBN(String ISBN);

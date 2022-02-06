@@ -77,9 +77,11 @@ public class BookServiceImpl implements BookService {
 		
 		@Override
 		@Transactional
-		public List<Book> getBookByGenre(int Id) {
+		public List<Book> getBookByGenre(String genre) {
 			logger.debug("BookService.getBookByGenre() invoked.");
-			return bookDao.findByGenre(Id);
+			System.out.println("simpl");
+			
+			return bookDao.findByGenre_Genre(genre);
 		}
 		
 
