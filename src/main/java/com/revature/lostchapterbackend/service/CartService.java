@@ -25,6 +25,8 @@ import com.revature.lostchapterbackend.model.Cart;
 @Service
 public interface CartService {
 	
+	public Cart createCart(Cart newCart);	
+	
 /* Returns cart by id using spring boot repo*/
 public Cart getCartById(int Id);
 
