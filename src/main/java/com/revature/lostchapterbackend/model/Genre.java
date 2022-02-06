@@ -23,10 +23,12 @@ public class Genre {
 	private String genre;
 
 	public Genre() {
-		Id = 0;
-		genre = "";
+		this.Id = 1;
+		this.genre = "unknown";
 	}
-
+//	public Genre(int Id) {
+//		this.Id = Id;
+//	}
 	public int getId() {
 		return Id;
 	}

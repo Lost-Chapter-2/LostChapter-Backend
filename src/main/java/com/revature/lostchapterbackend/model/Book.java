@@ -2,6 +2,7 @@ package com.revature.lostchapterbackend.model;
 
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Book {
 	@Column(name="author")
 	private String author;
 
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="genre_id")
 	private Genre genre;
 

@@ -28,6 +28,7 @@ public class BookServiceImpl implements BookService {
 	
 
 	@Override
+	@Transactional
 	public List<Book> getAllBooks() {
 		logger.debug("BookService.getAllBooks() invoked.");
 		List<Book> books = bookDao.findAll();
@@ -37,6 +38,7 @@ public class BookServiceImpl implements BookService {
 
 
 	@Override
+	@Transactional
 	public Book getBookById(int bookId) {
 		logger.debug("BookService.getBookById() invoked.");
 		Optional<Book> book = bookDao.findById(bookId);
@@ -74,13 +76,15 @@ public class BookServiceImpl implements BookService {
 
 		
 		@Override
+		@Transactional
 		public List<Book> getBookByGenre(int Id) {
 			logger.debug("BookService.getBookByGenre() invoked.");
-			return bookDao.findBygenre(Id);
+			return bookDao.findByGenre(Id);
 		}
 		
 
 		@Override
+		@Transactional
 		public List<Book> getByISBN(String ISBN){
 			logger.debug("BookService.getByISBN() invoked.");
 			return bookDao.findByISBN(ISBN);
@@ -89,6 +93,7 @@ public class BookServiceImpl implements BookService {
 
 
 		@Override
+		@Transactional
 		public List<Book> getByKeyWord(String key) {
 			logger.debug("BookService.getByKeyWord() invoked.");
 			List<Book> books = bookDao.findAll();
