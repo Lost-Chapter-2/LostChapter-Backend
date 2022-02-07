@@ -30,9 +30,9 @@ public class Cart {
 	private List<BookToBuy> books;
 
 	public Cart() {
-		cartId = 0;
-		user = new User();
-		books = new ArrayList<BookToBuy>();
+		this.cartId = 0;
+		this.user = new User();
+		this.books = new ArrayList<BookToBuy>();
 	}
 
 	public int getCartId() {

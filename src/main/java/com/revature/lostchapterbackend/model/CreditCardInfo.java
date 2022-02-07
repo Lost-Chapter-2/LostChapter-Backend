@@ -20,7 +20,7 @@ public class CreditCardInfo {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int ccInfoId;
 	private String nameOnCard;
-	private int cardNumber;
+	private long cardNumber;
 	private int cvv;
 	private int expirationMonth;
 	private int expirationYear;
@@ -65,7 +65,7 @@ public class CreditCardInfo {
 	}
 
 
-	public int getCardNumber() {
+	public long getCardNumber() {
 		return cardNumber;
 	}
 

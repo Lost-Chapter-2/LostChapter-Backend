@@ -16,8 +16,8 @@ import com.revature.lostchapterbackend.model.Cart;
 @Service
 public class CartServiceImpl implements CartService{
 
-	public CartDAO cartDao;
-	public BookToBuyDAO bookToBuyDao;
+	private CartDAO cartDao;
+	private BookToBuyDAO bookToBuyDao;
 	@Autowired
 	public CartServiceImpl(CartDAO cartDao,BookToBuyDAO bookToBuyDao) {
 		this.cartDao=cartDao;
@@ -196,6 +196,13 @@ public class CartServiceImpl implements CartService{
 			}
 		}
 		
+	}
+
+	@Override
+	@Transactional
+	public Cart createCart(Cart newCart) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

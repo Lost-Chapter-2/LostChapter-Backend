@@ -3,6 +3,8 @@ package com.revature.lostchapterbackend.service;
 import java.security.InvalidParameterException;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	@Transactional
 	public List<Review> getAllReviews() {
 		logger.info("ReviewService.getAllReviews() invoked.");
 
@@ -38,6 +41,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	@Transactional
 	public Review getReviewById(String id) throws ReviewNotFoundException {
 		logger.info("ReviewService.getReviewById() invoked.");
 
@@ -55,6 +59,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	@Transactional
 	public Review addReview(Review newReview) throws InvalidParameterException {
 		logger.info("ReviewService.addReview() invoked.");
 
@@ -67,6 +72,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	@Transactional
 	public Review updateReview(Review reviewToUpdate, String id)
 			throws ReviewNotFoundException, InvalidParameterException {
 
@@ -89,6 +95,7 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
+	@Transactional
 	public List<Review> getReviewsByBook(Book book) throws BookNotFoundException {
 		if (!bookDao.findById(book.getBookId()).isPresent()) {
 			throw new BookNotFoundException();

@@ -24,7 +24,7 @@ import com.revature.lostchapterbackend.service.BookService;
 
 @RestController
 @RequestMapping(path="/book")
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin("*")
 public class BookController {
 
 	private Logger logger = LoggerFactory.getLogger(BookController.class);
@@ -40,6 +40,7 @@ public class BookController {
 		this.bookServ=bookServ;
 	}
 	
+	//working
 	@GetMapping
 	public ResponseEntity<List<Book>>  getAllBooks() {
 		logger.debug("BookController.getAllBooks() invoked.");
@@ -56,7 +57,8 @@ public class BookController {
 //
 //		return featuredBooks;
 //	}
-
+	
+	//working
 	@GetMapping(path = "/{bookId}")
 	public ResponseEntity<Book> getBookById(@PathVariable int bookId) {
 		logger.debug("BookController.getBookById() invoked.");
@@ -70,13 +72,13 @@ public class BookController {
 			return ResponseEntity.notFound().build();
 
 	}
-
-	@GetMapping(path = "/genre/{genreId}")
-	public ResponseEntity<Object> getBookByGenreId(@PathVariable int genreId) {
+	//working
+	@GetMapping(path = "/genre/{name}")
+	public ResponseEntity<Object> getBookByGenreId(@PathVariable String name) {
 		logger.debug("BookController.getBookByGenreId() invoked.");
 
 		try {
-			List<Book> bookList = bookServ.getBookByGenre(genreId);
+			List<Book> bookList = bookServ.getBookByGenre(name);
 			if(bookList!=null)
 			return ResponseEntity.ok(bookList);
 			else
@@ -87,7 +89,7 @@ public class BookController {
 		}
 
 	}
-
+	//working
 	@GetMapping(path = "/search/{key}")
 	public ResponseEntity<Object> getBookByKeyword(@PathVariable String key) {
 		logger.debug("BookController.getBookByKeyword() invoked.");
@@ -111,14 +113,14 @@ public class BookController {
 //
 //	}
 
-	//@Admin
+	//working
 	@PostMapping
 	public ResponseEntity<Void> addNewBook(@RequestBody Book newBook) {
 
 		logger.debug("BookController.addNewBook() invoked.");
 
 		if (newBook !=null) {
-		
+		System.out.println(newBook);
 				bookServ.addBook(newBook);
 				return ResponseEntity.status(HttpStatus.CREATED).build();
 			}

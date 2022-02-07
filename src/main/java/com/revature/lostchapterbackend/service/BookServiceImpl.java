@@ -1,4 +1,5 @@
 package com.revature.lostchapterbackend.service;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ public class BookServiceImpl implements BookService {
 	
 
 	@Override
+	@Transactional
 	public List<Book> getAllBooks() {
 		logger.debug("BookService.getAllBooks() invoked.");
 		List<Book> books = bookDao.findAll();
@@ -37,6 +39,7 @@ public class BookServiceImpl implements BookService {
 
 
 	@Override
+	@Transactional
 	public Book getBookById(int bookId) {
 		logger.debug("BookService.getBookById() invoked.");
 		Optional<Book> book = bookDao.findById(bookId);
@@ -74,13 +77,17 @@ public class BookServiceImpl implements BookService {
 
 		
 		@Override
-		public List<Book> getBookByGenre(int Id) {
+		@Transactional
+		public List<Book> getBookByGenre(String genre) {
 			logger.debug("BookService.getBookByGenre() invoked.");
-			return bookDao.findBygenre(Id);
+			System.out.println("simpl");
+			
+			return bookDao.findByGenre_Genre(genre);
 		}
 		
 
 		@Override
+		@Transactional
 		public List<Book> getByISBN(String ISBN){
 			logger.debug("BookService.getByISBN() invoked.");
 			return bookDao.findByISBN(ISBN);
@@ -89,15 +96,19 @@ public class BookServiceImpl implements BookService {
 
 
 		@Override
+		@Transactional
 		public List<Book> getByKeyWord(String key) {
 			logger.debug("BookService.getByKeyWord() invoked.");
 			List<Book> books = bookDao.findAll();
+			List<Book> found= new ArrayList<Book>(); 
+			if(books!=null)
 			for(Book book:books) {
-				if(!book.getBookName().toLowerCase().contains(key.toLowerCase())) {
-					books.remove(book);
+				if(book.getBookName().toLowerCase().contains(key.toLowerCase())) {
+					found.add(book);
 				}
 			}
-			return books;
+			else return null;
+			return found;
 		}	
 
 			
