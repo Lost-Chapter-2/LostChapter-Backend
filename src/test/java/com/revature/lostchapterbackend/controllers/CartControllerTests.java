@@ -1,6 +1,7 @@
 //<<<<<<< HEAD:src/test/java/com/revature/lostchapterbackend/cartintegrationtests/CartIntegrationTests.java
 package com.revature.lostchapterbackend.controllers;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -8,6 +9,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -99,21 +101,21 @@ public class CartControllerTests {
 	}
 	
 	@Test
-	public void addBookToCart(@RequestBody Book bookToAdd, @PathVariable int userId) throws Exception{
+	public void addBookToCart(@RequestBody Book bookToAdd, @PathVariable int userId) throws Exception {
 		Book newBook = new Book ();
-		when(cartServ.addBooksToCart(newBook, userId)).thenReturn(null);
+		doNothing().when(cartServ).addBooksToCart(newBook, userId);
 		
 		
 		String jsonBook = objMapper.writeValueAsString(newBook);
 		
-		mockMvc.perform(post("/add/{bookToBuyId}/{userId}").content(jsonBook).contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(post("/cart/add/{bookToBuyId}/{userId}").content(jsonBook).contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest()).andReturn();
 	}
 	
 	@Test 
 	public void addBookToCartNoUser(@RequestBody Book bookToAdd, @PathVariable int cartId) throws Exception {
 		String jsonBook = objMapper.writeValueAsString(null);
-		mockMvc.perform(post("/delete/{bookToBuyId}/{userId}").content(jsonBook).contentType(MediaType.APPLICATION_JSON))
+		mockMvc.perform(post("/cart/delete/{bookToBuyId}/{userId}").content(jsonBook).contentType(MediaType.APPLICATION_JSON))
 		.andExpect(status().isBadRequest()).andReturn();
 	}
 }
