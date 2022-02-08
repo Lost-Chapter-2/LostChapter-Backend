@@ -24,7 +24,7 @@ public class TransactionServiceImpl implements TransactionService {
 
 	@Override
 	@Transactional
-	public Cart getPurchacedCart(int currentOrderId) throws OrderDoesNotExist{
+	public Cart getPurchasedCart(int currentOrderId) throws OrderDoesNotExist{
 		try
 		{
 			Cart theCart = transactiondao.findByOrderCart(currentOrderId);
