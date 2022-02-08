@@ -3,6 +3,7 @@ package com.revature.lostchapterbackend.controllers;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -10,12 +11,14 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.lostchapterbackend.LostChapterBackendApplication;
 import com.revature.lostchapterbackend.controller.CartController;
@@ -96,8 +99,23 @@ public class CartControllerTests {
 	}
 	
 	@Test
-	public ResponseEntity<Object> addBookToCart(@RequestBody Book bookToAdd, @PathVariable int userId){
-		return null;}
+	public void addBookToCart(@RequestBody Book bookToAdd, @PathVariable int userId) throws Exception{
+		Book newBook = new Book ();
+		when(cartServ.addBooksToCart(newBook, userId)).thenReturn(null);
+		
+		
+		String jsonBook = objMapper.writeValueAsString(newBook);
+		
+		mockMvc.perform(post("/add/{bookToBuyId}/{userId}").content(jsonBook).contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isBadRequest()).andReturn();
+	}
+	
+	@Test 
+	public void addBookToCartNoUser(@RequestBody Book bookToAdd, @PathVariable int cartId) throws Exception {
+		String jsonBook = objMapper.writeValueAsString(null);
+		mockMvc.perform(post("/delete/{bookToBuyId}/{userId}").content(jsonBook).contentType(MediaType.APPLICATION_JSON))
+		.andExpect(status().isBadRequest()).andReturn();
+	}
 }
 //@AutoConfigureMockMvc
 //@DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
