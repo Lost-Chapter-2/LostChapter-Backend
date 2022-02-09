@@ -20,7 +20,7 @@ import com.revature.lostchapterbackend.service.TransactionService;
 
 @RestController
 @RequestMapping(path="/transactions")
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin("*")
 public class TransactionController {
 
 	private static TransactionService transService;
