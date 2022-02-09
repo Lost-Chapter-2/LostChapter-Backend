@@ -29,7 +29,7 @@ public class TransactionController {
 	public TransactionController () {super();}
 	
 	@Autowired
-	public TransactionController(TransactionService transService, CartService cartServ) {
+	public TransactionController(TransactionService transService, CartService cartService) {
 		this.transService=transService;
 		this.cartService=cartService;
 	}
