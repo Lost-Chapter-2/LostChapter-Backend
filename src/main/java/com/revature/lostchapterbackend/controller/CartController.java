@@ -25,7 +25,7 @@ import com.revature.lostchapterbackend.service.CartService;
 
 @RestController
 @RequestMapping(path="/cart")
-@CrossOrigin(origins="http://localhost:4200/")
+@CrossOrigin("*")
 public class CartController {
 
 	//static for testing
